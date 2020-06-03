@@ -20,6 +20,11 @@ namespace LifeInTheWild
             this.texture = tex;
         }
 
+        public Vector2 getPosition()
+        {
+            return this.position;
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.texture, this.position, Color.White);
