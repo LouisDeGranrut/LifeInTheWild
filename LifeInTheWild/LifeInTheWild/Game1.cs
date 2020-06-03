@@ -20,9 +20,12 @@ namespace LifeInTheWild
         private Player player;
 
         private Texture2D arbreTex;
+        private Texture2D doorTex;
+        private Texture2D chestTex;
         private Arbre arbre;
         private Arbre arbre2;
         private Arbre arbre3;
+        private Arbre arbre4;
 
         List<Entity> objets = new List<Entity>();
 
@@ -55,12 +58,16 @@ namespace LifeInTheWild
             player = new Player(new Vector2(0,0), playerup, 10);
 
             arbreTex = Content.Load<Texture2D>("tree");
+            doorTex = Content.Load<Texture2D>("door");
+            chestTex = Content.Load<Texture2D>("chest");
             arbre = new Arbre(new Vector2(rnd.Next(10)*tileSize, rnd.Next(10) * tileSize), arbreTex,10);
             objets.Add(arbre);
             arbre2 = new Arbre(new Vector2(rnd.Next(10) * tileSize, rnd.Next(10) * tileSize), arbreTex, 10);
             objets.Add(arbre2);
-            arbre3 = new Arbre(new Vector2(rnd.Next(10) * tileSize, rnd.Next(10) * tileSize), arbreTex, 10);
+            arbre3 = new Arbre(new Vector2(rnd.Next(10) * tileSize, rnd.Next(10) * tileSize), chestTex, 10);
             objets.Add(arbre3);
+            arbre4 = new Arbre(new Vector2(rnd.Next(10) * tileSize, rnd.Next(10) * tileSize), doorTex, 10);
+            objets.Add(arbre4);
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires
             for (int i = 0; i <= mapSize-1; i++)
