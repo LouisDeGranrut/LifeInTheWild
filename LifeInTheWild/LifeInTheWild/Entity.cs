@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LifeInTheWild
 {
-    abstract class Entity
+    public abstract class Entity
     {
 
         protected Vector2 position;

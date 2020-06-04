@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LifeInTheWild
 {
-    class Player : Entity//hérite de Entity
+    public class Player : Entity//hérite de Entity
     {
         private int hp;
 
