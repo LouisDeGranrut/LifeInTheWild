@@ -4,7 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/attaque.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/basic.spritefont</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bush.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/chest.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/door.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/flatrock.png</File>
@@ -12,11 +14,23 @@
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/grass.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/grass2.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/grass3.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerdown.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerleft.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerright.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerup.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/pot.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/rocks.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/sapin.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/tree.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

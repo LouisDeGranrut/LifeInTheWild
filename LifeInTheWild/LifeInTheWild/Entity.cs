@@ -25,9 +25,9 @@ namespace LifeInTheWild
             return this.position;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, this.position, Color.White);
+             spriteBatch.Draw(this.texture, this.position, Color.White);
         }
 
     }

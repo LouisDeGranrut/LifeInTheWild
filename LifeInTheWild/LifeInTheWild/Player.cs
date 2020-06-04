@@ -18,7 +18,14 @@ namespace LifeInTheWild
         private float speed;
         private float yDir;
         private float xDir;
-        public Player(Vector2 pos, Texture2D tex, int hp) : base(pos, tex)
+
+        private Texture2D down;
+        private Texture2D left;
+        private Texture2D right;
+        private Texture2D up;
+        private Texture2D attaque;
+
+        public Player(Vector2 pos, int hp, Texture2D tex, Texture2D down, Texture2D left, Texture2D right, Texture2D attaque) : base(pos, tex)
         {
             this.hp = hp;
 
@@ -28,6 +35,11 @@ namespace LifeInTheWild
             this.velocity = new Vector2(0, 0);
             yDir = 0;
             xDir = 0;
+
+            this.down = down;
+            this.left = left;
+            this.right = right;
+            this.up = tex;
         }
 
         private bool collision(List<Entity> objets, Vector2 v)
@@ -53,14 +65,26 @@ namespace LifeInTheWild
 
         public void Update(List<Entity> objets)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            if (Keyboard.GetState().IsKeyDown(Keys.Down)) {
                 yDir = speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Up))
+                this.texture = up;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up)) {
                 yDir =-speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Left))
+                this.texture = down;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left)){
                 xDir = -speed;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+                this.texture = left;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Right)){
                 xDir = speed;
+                this.texture = right;
+                if (Keyboard.GetState().IsKeyDown(Keys.Space))
+                {
+                    objets.Add(new Arbre(new Vector2(this.position.X, this.position.Y), attaque, 10));
+                }
+            }
 
             velocity.X += xDir * (float)Math.Cos(-direction.X) - yDir * (float)Math.Sin(-direction.X);
             velocity.Y += yDir * (float)Math.Cos(-direction.X) + xDir * (float)Math.Sin(-direction.X);
@@ -82,7 +106,7 @@ namespace LifeInTheWild
             yDir = 0;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             base.Draw(spriteBatch);
         }

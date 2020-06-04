@@ -32,3 +32,10 @@ C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\tree.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\door.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\rocks.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\playerdown.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\playerleft.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\playerright.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\attaque.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\bush.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\pot.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\sapin.xnb
