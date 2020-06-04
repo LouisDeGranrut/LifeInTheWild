@@ -63,7 +63,7 @@ namespace LifeInTheWild
             return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (16*16));
         }
 
-        public void Update(List<Entity> objets)
+        public void Update(List<Entity> objets, int[,] map)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Down)) {
                 yDir = speed;
@@ -77,26 +77,26 @@ namespace LifeInTheWild
                 xDir = -speed;
                 this.texture = left;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)){
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
                 xDir = speed;
                 this.texture = right;
-                if (Keyboard.GetState().IsKeyDown(Keys.Space))
-                {
-                    objets.Add(new Arbre(new Vector2(this.position.X, this.position.Y), attaque, 10));
-                }
             }
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+                    map[(int)((this.position.Y) / 16), (int)((this.position.X) / 16)] = 4;
+            }
+        
 
             velocity.X += xDir * (float)Math.Cos(-direction.X) - yDir * (float)Math.Sin(-direction.X);
             velocity.Y += yDir * (float)Math.Cos(-direction.X) + xDir * (float)Math.Sin(-direction.X);
 
-            //check collision sur l'axe X (if position + velocity.X != collision)
-            if (!collision(objets, position + velocity))
+            if (!collision(objets, position + new Vector2(velocity.X, 0)))
             {
                 position.X += velocity.X * speed;
             }
 
-            //check collision sur l'axe Z (if position + velocity.Z != collision)
-            if (!collision(objets, position + velocity))
+            if (!collision(objets, position + new Vector2(0,velocity.Y)))
             {
                 position.Y += velocity.Y * speed;
             }

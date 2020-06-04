@@ -67,6 +67,7 @@ namespace LifeInTheWild
             floorTiles[1] = Content.Load<Texture2D>("grass2");
             floorTiles[2] = Content.Load<Texture2D>("grass3");
             floorTiles[3] = Content.Load<Texture2D>("flowers");
+            floorTiles[4] = Content.Load<Texture2D>("flatrock");
 
             arbreTex = Content.Load<Texture2D>("tree");
             attaqueTex = Content.Load<Texture2D>("attaque");
@@ -116,7 +117,7 @@ namespace LifeInTheWild
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(objets);
+            player.Update(objets, map);
             camera.Follow(player);
 
             base.Update(gameTime);
