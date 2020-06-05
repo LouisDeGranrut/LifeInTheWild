@@ -26,6 +26,8 @@ namespace LifeInTheWild
         private Texture2D up;
         private Texture2D attaque;
 
+        private KeyboardState oldState;
+
         // Constructeur
         public Player(Vector2 pos, int hp, Texture2D tex, Texture2D down, Texture2D left, Texture2D right, Texture2D attaque) : base(pos, tex, hp)
         {
@@ -42,6 +44,7 @@ namespace LifeInTheWild
             this.left = left;
             this.right = right;
             this.up = tex;
+            oldState = Keyboard.GetState();
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         //Collisions avec les objets proche, retourne l'objet avec lequel le joueur collisionne
@@ -98,7 +101,10 @@ namespace LifeInTheWild
             {
                 outil -= 1;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))// PIRE CODE EVER
+
+            KeyboardState newState = Keyboard.GetState();  // get the newest state
+
+            if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))// PIRE CODE EVER
             {
                 if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
                 {
@@ -109,6 +115,8 @@ namespace LifeInTheWild
                     map[(int)((this.position.Y) / 16), (int)((this.position.X) / 16)] = 4;
                 }
             }
+
+            oldState = newState;
 
             velocity.X += xDir * (float)Math.Cos(-direction.X) - yDir * (float)Math.Sin(-direction.X);
             velocity.Y += yDir * (float)Math.Cos(-direction.X) + xDir * (float)Math.Sin(-direction.X);
