@@ -30,5 +30,9 @@ namespace LifeInTheWild
              spriteBatch.Draw(this.texture, this.position, Color.White);
         }
 
+        public void Delete()
+        {
+            Console.WriteLine("SUPPRESSION");
+        }
     }
 }

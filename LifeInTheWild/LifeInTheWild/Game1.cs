@@ -62,12 +62,12 @@ namespace LifeInTheWild
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("basic");
 
-            floorTiles = new Texture2D[5];
+            floorTiles = new Texture2D[10];
             floorTiles[0] = Content.Load<Texture2D>("grass");
             floorTiles[1] = Content.Load<Texture2D>("grass2");
             floorTiles[2] = Content.Load<Texture2D>("grass3");
             floorTiles[3] = Content.Load<Texture2D>("flowers");
-            floorTiles[4] = Content.Load<Texture2D>("flatrock");
+            floorTiles[4] = Content.Load<Texture2D>("dirt");
 
             arbreTex = Content.Load<Texture2D>("tree");
             attaqueTex = Content.Load<Texture2D>("attaque");
@@ -149,8 +149,14 @@ namespace LifeInTheWild
                     el.Draw(spriteBatch);
                 }
             }
+
             player.Draw(spriteBatch);
-            //spriteBatch.DrawString(font, player.getHP().ToString(),player.getPosition(),Color.White);
+            spriteBatch.End();
+
+            //spritebatch pour l'interface--------------------------------------------------------------------------------------------------------
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(font, "Outils: " + player.getHP().ToString(), new Vector2(10, 20), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

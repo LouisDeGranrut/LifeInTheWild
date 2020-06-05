@@ -11,20 +11,23 @@ namespace LifeInTheWild
 {
     public class Player : Entity//hérite de Entity
     {
+        //Gameplay-----------------------------------------
         private int hp;
-
+        private int tool;//l'outils équipé
+        //Movement-----------------------------------------
         private Vector2 velocity;
         private Vector2 direction;
         private float speed;
         private float yDir;
         private float xDir;
-
+        //Textures-----------------------------------------
         private Texture2D down;
         private Texture2D left;
         private Texture2D right;
         private Texture2D up;
         private Texture2D attaque;
 
+        // Constructeur
         public Player(Vector2 pos, int hp, Texture2D tex, Texture2D down, Texture2D left, Texture2D right, Texture2D attaque) : base(pos, tex)
         {
             this.hp = hp;
@@ -41,28 +44,34 @@ namespace LifeInTheWild
             this.right = right;
             this.up = tex;
         }
-
-        private bool collision(List<Entity> objets, Vector2 v)
+        //------------------------------------------------------------------------------------------------------------------------------------------------------
+        //Collisions avec les objets proche, retourne l'objet avec lequel le joueur collisionne
+        private Entity CollisionManager(List<Entity> objets, Vector2 v)
         {
-            bool res = false;
+            Entity res = null;
             foreach(Entity el in objets)//pour tous les objets de la map
             {
-                if (checkDistance(el))//si l'objet est proche du joueur, on regarde s'il collisionne avec
+                if (checkDistance(el) && collisionObjet(el, v))//si l'objet est proche du joueur et qu'il collisionne avec
                 {
-                    res = (v.X < el.getPosition().X + 16 && v.X + 16 > el.getPosition().X &&
-                v.Y < el.getPosition().Y + 16 && v.Y + 16 > el.getPosition().Y);
-                    Console.WriteLine("COLLISIONS");
+                    res = el;//on retourne l'objet en question
                 }
             }
             return res;
-        } 
+        }
 
-        // Si l'objet en paramètre est à une 5 unités du joueur, alors on retourne "vrai"
+        // Si l'objet en paramètre est à 16 unités du joueur, alors on retourne "vrai"
         private bool checkDistance(Entity objet)
         {
             return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (16*16));
         }
 
+        //retourne un booleen si player collisionne avec l'objet donné
+        private bool collisionObjet(Entity objet, Vector2 v)
+        {
+            return (v.X < objet.getPosition().X + 16 && v.X + 16 > objet.getPosition().X && v.Y < objet.getPosition().Y + 16 && v.Y + 16 > objet.getPosition().Y);
+        }
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------------
         public void Update(List<Entity> objets, int[,] map)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Down)) {
@@ -82,22 +91,26 @@ namespace LifeInTheWild
                 xDir = speed;
                 this.texture = right;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))// PIRE CODE EVER
             {
+                if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
+                {
+                    CollisionManager(objets, position + velocity).Delete();// PIRE CODE EVER
+                }
+                else
+                {
                     map[(int)((this.position.Y) / 16), (int)((this.position.X) / 16)] = 4;
+                }
             }
-        
 
             velocity.X += xDir * (float)Math.Cos(-direction.X) - yDir * (float)Math.Sin(-direction.X);
             velocity.Y += yDir * (float)Math.Cos(-direction.X) + xDir * (float)Math.Sin(-direction.X);
 
-            if (!collision(objets, position + new Vector2(velocity.X, 0)))
-            {
+            if (CollisionManager(objets, position + new Vector2(velocity.X, 0))==null){
                 position.X += velocity.X * speed;
             }
 
-            if (!collision(objets, position + new Vector2(0,velocity.Y)))
-            {
+            if (CollisionManager(objets, position + new Vector2(0,velocity.Y))==null){
                 position.Y += velocity.Y * speed;
             }
 
@@ -111,6 +124,7 @@ namespace LifeInTheWild
             base.Draw(spriteBatch);
         }
 
+        //Getters-----------------------------------------------------------------------------------------------------------------------------------------------
         public int getHP()
         {
             return this.hp;
