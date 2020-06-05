@@ -12,8 +12,7 @@ namespace LifeInTheWild
     public class Player : Entity//hérite de Entity
     {
         //Gameplay-----------------------------------------
-        private int hp;
-        private int tool;//l'outils équipé
+        private int outil;//l'outils équipé
         //Movement-----------------------------------------
         private Vector2 velocity;
         private Vector2 direction;
@@ -28,7 +27,7 @@ namespace LifeInTheWild
         private Texture2D attaque;
 
         // Constructeur
-        public Player(Vector2 pos, int hp, Texture2D tex, Texture2D down, Texture2D left, Texture2D right, Texture2D attaque) : base(pos, tex)
+        public Player(Vector2 pos, int hp, Texture2D tex, Texture2D down, Texture2D left, Texture2D right, Texture2D attaque) : base(pos, tex, hp)
         {
             this.hp = hp;
 
@@ -74,28 +73,36 @@ namespace LifeInTheWild
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         public void Update(List<Entity> objets, int[,] map)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Down)) {
+            if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 yDir = speed;
                 this.texture = up;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Up)) {
+            if (Keyboard.GetState().IsKeyDown(Keys.Z)) {
                 yDir =-speed;
                 this.texture = down;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)){
+            if (Keyboard.GetState().IsKeyDown(Keys.Q)){
                 xDir = -speed;
                 this.texture = left;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 xDir = speed;
                 this.texture = right;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+            {
+                outil +=1;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+            {
+                outil -= 1;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Space))// PIRE CODE EVER
             {
                 if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
                 {
-                    CollisionManager(objets, position + velocity).Delete();// PIRE CODE EVER
+                    CollisionManager(objets, position + velocity).Damage( 1);// PIRE CODE EVER
                 }
                 else
                 {
@@ -128,6 +135,11 @@ namespace LifeInTheWild
         public int getHP()
         {
             return this.hp;
+        }
+
+        public int getOutil()
+        {
+            return this.outil;
         }
     }
 }

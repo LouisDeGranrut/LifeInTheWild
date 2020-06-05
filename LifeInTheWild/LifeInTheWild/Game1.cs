@@ -82,7 +82,7 @@ namespace LifeInTheWild
             playerdown = Content.Load<Texture2D>("playerdown");
             playerleft = Content.Load<Texture2D>("playerleft");
             playerright = Content.Load<Texture2D>("playerright");
-            player = new Player(new Vector2(0, 0), 10, playerup, playerdown, playerleft, playerright, attaqueTex);
+            player = new Player(new Vector2(512, 512), 10, playerup, playerdown, playerleft, playerright, attaqueTex);
             camera = new Camera();
 
 
@@ -156,7 +156,9 @@ namespace LifeInTheWild
             //spritebatch pour l'interface--------------------------------------------------------------------------------------------------------
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.White);
-            spriteBatch.DrawString(font, "Outils: " + player.getHP().ToString(), new Vector2(10, 20), Color.White);
+            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
+            spriteBatch.DrawString(font, "Wood: ", new Vector2(10, 40), Color.White);
+            spriteBatch.DrawString(font, "Stone: ", new Vector2(10, 55), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

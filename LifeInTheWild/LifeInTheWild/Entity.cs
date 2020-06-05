@@ -13,11 +13,13 @@ namespace LifeInTheWild
 
         protected Vector2 position;
         protected Texture2D texture;
+        protected int hp;
 
-        public Entity(Vector2 pos, Texture2D tex)
+        public Entity(Vector2 pos, Texture2D tex, int hp)
         {
             this.position = pos;
             this.texture = tex;
+            this.hp = hp;
         }
 
         public Vector2 getPosition()
@@ -28,6 +30,13 @@ namespace LifeInTheWild
         public virtual void Draw(SpriteBatch spriteBatch)
         {
              spriteBatch.Draw(this.texture, this.position, Color.White);
+        }
+
+        //Inflige des dégats à l'entité
+        public void Damage(int damage)
+        {
+            this.hp -= damage;
+            Console.WriteLine("HP: " + this.hp);
         }
 
         public void Delete()

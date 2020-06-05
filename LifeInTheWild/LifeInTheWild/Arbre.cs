@@ -10,10 +10,8 @@ namespace LifeInTheWild
 {
     class Arbre : Entity
     {
-        private int hp; 
-        public Arbre(Vector2 pos, Texture2D tex, int hp) : base(pos, tex)
+        public Arbre(Vector2 pos, Texture2D tex, int hp) : base(pos, tex, hp)
         {
-            this.hp = hp;
         }
 
     }
