@@ -159,6 +159,7 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
             spriteBatch.DrawString(font, "Wood: ", new Vector2(10, 40), Color.White);
             spriteBatch.DrawString(font, "Stone: ", new Vector2(10, 55), Color.White);
+            spriteBatch.DrawString(font, (player.getPosition().X)/tileSize + " "+(player.getPosition().Y)/tileSize, new Vector2(10, 70), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

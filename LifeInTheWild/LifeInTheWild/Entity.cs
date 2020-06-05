@@ -29,7 +29,8 @@ namespace LifeInTheWild
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-             spriteBatch.Draw(this.texture, this.position, Color.White);
+            //spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y + 2), Color.Gray);// potentiels ombres
+            spriteBatch.Draw(this.texture, this.position, Color.White);
         }
 
         //Inflige des dégats à l'entité

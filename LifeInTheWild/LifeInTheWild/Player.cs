@@ -112,7 +112,7 @@ namespace LifeInTheWild
                 }
                 else
                 {
-                    map[(int)((this.position.Y) / 16), (int)((this.position.X) / 16)] = 4;
+                    map[(int)((this.position.Y+8) / 16), (int)((this.position.X+8) / 16)] = 4;
                 }
             }
 
@@ -136,7 +136,7 @@ namespace LifeInTheWild
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
         }
 
         //Getters-----------------------------------------------------------------------------------------------------------------------------------------------
