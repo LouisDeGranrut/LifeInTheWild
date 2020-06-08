@@ -27,6 +27,15 @@ namespace LifeInTheWild
             return this.position;
         }
 
+        public void Update()
+        {
+        }
+
+        public int getHP()
+        {
+            return this.hp;
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y + 2), Color.Gray);// potentiels ombres
@@ -38,11 +47,6 @@ namespace LifeInTheWild
         {
             this.hp -= damage;
             Console.WriteLine("HP: " + this.hp);
-        }
-
-        public void Delete()
-        {
-            Console.WriteLine("SUPPRESSION");
         }
     }
 }

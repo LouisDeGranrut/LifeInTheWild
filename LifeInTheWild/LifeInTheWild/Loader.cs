@@ -13,6 +13,8 @@ namespace LifeInTheWild
 
         public static Dictionary<string, Texture2D> Images;
 
+        //On peut créer une fonction pour charger certaines images précises en fonction des besoins 
+        //plutot que de charger toutes les images d'un coup
         public static void LoadImages(ContentManager content)
         {
             Images = new Dictionary<string, Texture2D>();
@@ -20,7 +22,7 @@ namespace LifeInTheWild
             List<string> imagesName = new List<string>()
             {
                 "tree","sapin","rocks","pot","bush","door","chest","playerup","playerdown","playerleft","playerright",
-                "grass","grass2","grass3","flowers","dirt"
+                "grass","grass2","grass3","flowers","dirt","campfire"
             };
 
             foreach(string img in imagesName)

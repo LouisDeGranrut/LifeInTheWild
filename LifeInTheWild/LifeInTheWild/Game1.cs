@@ -24,9 +24,10 @@ namespace LifeInTheWild
         //Les objets du jeu
         private Arbre arbre;
 
-        List<Entity> objets = new List<Entity>();//Liste contenant tous les objets du jeu (sert aux collisions)
+        //Liste contenant tous les objets du jeu (sert aux collisions)
+        List<Entity> objets = new List<Entity>();
 
-        private int[,] map = new int[mapSize, mapSize];//tableau de mapSize rangs et mapSize colonnes
+        private int[,] map = new int[mapSize, mapSize];//Tableau de mapSize rangs et mapSize colonnes
 
         public Game1()
         {
@@ -59,7 +60,6 @@ namespace LifeInTheWild
             player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", "attaqueTex");
             camera = new Camera();
 
-
             for (int i = 0; i <= 50; i++)
             {
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 10));
@@ -67,6 +67,7 @@ namespace LifeInTheWild
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 10));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 10));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "pot", 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
             }
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
@@ -88,7 +89,13 @@ namespace LifeInTheWild
 
             player.Update(objets, map);
             camera.Follow(player);
-
+            for(int i = 0; i<objets.Count;i++)
+            {
+                if (objets[i].getHP() <= 0)
+                {
+                    objets.Remove(objets[i]);
+                }
+            }
             base.Update(gameTime);
         }
 
