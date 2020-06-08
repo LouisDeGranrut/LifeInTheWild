@@ -15,10 +15,10 @@ namespace LifeInTheWild
         protected Texture2D texture;
         protected int hp;
 
-        public Entity(Vector2 pos, Texture2D tex, int hp)
+        public Entity(Vector2 pos, string image, int hp)
         {
             this.position = pos;
-            this.texture = tex;
+            this.texture = Loader.Images[image];
             this.hp = hp;
         }
 

@@ -29,7 +29,7 @@ namespace LifeInTheWild
         private KeyboardState oldState;
 
         // Constructeur
-        public Player(Vector2 pos, int hp, Texture2D tex, Texture2D down, Texture2D left, Texture2D right, Texture2D attaque) : base(pos, tex, hp)
+        public Player(Vector2 pos, int hp, string image, string down, string left, string right, string attaque) : base(pos, image, hp)
         {
             this.hp = hp;
 
@@ -40,10 +40,10 @@ namespace LifeInTheWild
             yDir = 0;
             xDir = 0;
 
-            this.down = down;
-            this.left = left;
-            this.right = right;
-            this.up = tex;
+            this.down = Loader.Images[down];
+            this.left = Loader.Images[left];
+            this.right = Loader.Images[right];
+            this.up = Loader.Images[image];
             oldState = Keyboard.GetState();
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------

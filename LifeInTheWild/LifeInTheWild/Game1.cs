@@ -18,22 +18,8 @@ namespace LifeInTheWild
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
         private Camera camera;//la caméra du jeu
-
-        private Texture2D playerup;
-        private Texture2D playerdown;
-        private Texture2D playerleft;
-        private Texture2D playerright;
+        private Loader loader;
         private Player player;
-
-        //Les images des objets du jeu
-        private Texture2D arbreTex;
-        private Texture2D sapinTex;
-        private Texture2D bushTex;
-        private Texture2D potTex;
-        private Texture2D doorTex;
-        private Texture2D chestTex;
-        private Texture2D rockTex;
-        private Texture2D attaqueTex;
 
         //Les objets du jeu
         private Arbre arbre;
@@ -61,41 +47,29 @@ namespace LifeInTheWild
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("basic");
+            Loader.LoadImages(this.Content);
 
             floorTiles = new Texture2D[10];
-            floorTiles[0] = Content.Load<Texture2D>("grass");
-            floorTiles[1] = Content.Load<Texture2D>("grass2");
-            floorTiles[2] = Content.Load<Texture2D>("grass3");
-            floorTiles[3] = Content.Load<Texture2D>("flowers");
-            floorTiles[4] = Content.Load<Texture2D>("dirt");
+            floorTiles[0] = Loader.Images["grass"];
+            floorTiles[1] = Loader.Images["grass2"];
+            floorTiles[2] = Loader.Images["grass3"];
+            floorTiles[3] = Loader.Images["flowers"];
+            floorTiles[4] = Loader.Images["dirt"];
 
-            arbreTex = Content.Load<Texture2D>("tree");
-            attaqueTex = Content.Load<Texture2D>("attaque");
-            sapinTex = Content.Load<Texture2D>("sapin");
-            potTex = Content.Load<Texture2D>("pot");
-            bushTex = Content.Load<Texture2D>("bush");
-            doorTex = Content.Load<Texture2D>("door");
-            chestTex = Content.Load<Texture2D>("chest");
-            rockTex = Content.Load<Texture2D>("rocks");
-
-            playerup = Content.Load<Texture2D>("playerup");
-            playerdown = Content.Load<Texture2D>("playerdown");
-            playerleft = Content.Load<Texture2D>("playerleft");
-            playerright = Content.Load<Texture2D>("playerright");
-            player = new Player(new Vector2(512, 512), 10, playerup, playerdown, playerleft, playerright, attaqueTex);
+            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", "attaqueTex");
             camera = new Camera();
 
 
             for (int i = 0; i <= 50; i++)
             {
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), rockTex, 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), arbreTex, 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), sapinTex, 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), bushTex, 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), potTex, 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "pot", 10));
             }
-            objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), doorTex, 10));
-            objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), chestTex, 10));
+            objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
+            objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires
             for (int i = 0; i <= mapSize-1; i++)
@@ -105,11 +79,6 @@ namespace LifeInTheWild
                     map[i,j] = rnd.Next(0, 4);
                 }
             }
-        }
-
-        protected override void UnloadContent()
-        {
-            // TODO: Unload any non ContentManager content here
         }
 
         protected override void Update(GameTime gameTime)

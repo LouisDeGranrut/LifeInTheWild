@@ -10,8 +10,9 @@ namespace LifeInTheWild
 {
     class Arbre : Entity
     {
-        public Arbre(Vector2 pos, Texture2D tex, int hp) : base(pos, tex, hp)
+        public Arbre(Vector2 pos, string image, int hp) : base(pos, image, hp)
         {
+            this.texture = Loader.Images[image];
         }
 
     }
