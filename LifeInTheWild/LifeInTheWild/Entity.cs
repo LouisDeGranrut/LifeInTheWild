@@ -27,10 +27,6 @@ namespace LifeInTheWild
             return this.position;
         }
 
-        public void Update()
-        {
-        }
-
         public int getHP()
         {
             return this.hp;
@@ -48,5 +44,7 @@ namespace LifeInTheWild
             this.hp -= damage;
             Console.WriteLine("HP: " + this.hp);
         }
+
+        public virtual void Destroy(Player player) {}
     }
 }

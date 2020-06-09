@@ -13,6 +13,8 @@ namespace LifeInTheWild
     {
         //Gameplay-----------------------------------------
         private int outil;//l'outils équipé
+        private int rock;//Inventaire
+        private int wood;//inventaire
         //Movement-----------------------------------------
         private Vector2 velocity;
         private Vector2 direction;
@@ -24,14 +26,15 @@ namespace LifeInTheWild
         private Texture2D left;
         private Texture2D right;
         private Texture2D up;
-        private Texture2D attaque;
 
         private KeyboardState oldState;
 
         // Constructeur
-        public Player(Vector2 pos, int hp, string image, string down, string left, string right, string attaque) : base(pos, image, hp)
+        public Player(Vector2 pos, int hp, string image, string down, string left, string right) : base(pos, image, hp)
         {
             this.hp = hp;
+            this.wood = 0;
+            this.rock = 0;
 
             this.speed = .4f;
             this.position = pos;
@@ -108,7 +111,7 @@ namespace LifeInTheWild
             {
                 if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
                 {
-                    CollisionManager(objets, position + velocity).Damage( 1);// PIRE CODE EVER
+                    CollisionManager(objets, position + velocity).Damage(1);// PIRE CODE EVER
                 }
                 else
                 {
@@ -139,7 +142,7 @@ namespace LifeInTheWild
             spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
         }
 
-        //Getters-----------------------------------------------------------------------------------------------------------------------------------------------
+        //Getters & Setters-------------------------------------------------------------------------------------------------------------------------------------
         public int getHP()
         {
             return this.hp;
@@ -148,6 +151,26 @@ namespace LifeInTheWild
         public int getOutil()
         {
             return this.outil;
+        }
+        public int getWood()
+        {
+            return this.wood;
+        }
+
+        public void addWood(int add)
+        {
+            this.wood += add;
+        }
+
+        public int getRock()
+        {
+            return this.rock;
+        }
+
+        public void addRock(int add)
+        {
+            this.rock += add;
+            Console.WriteLine("he rock");
         }
     }
 }

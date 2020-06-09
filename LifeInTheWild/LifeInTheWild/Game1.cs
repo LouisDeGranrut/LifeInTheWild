@@ -23,6 +23,7 @@ namespace LifeInTheWild
 
         //Les objets du jeu
         private Arbre arbre;
+        private Rock rock;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -57,17 +58,15 @@ namespace LifeInTheWild
             floorTiles[3] = Loader.Images["flowers"];
             floorTiles[4] = Loader.Images["dirt"];
 
-            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", "attaqueTex");
+            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright");
             camera = new Camera();
 
-            for (int i = 0; i <= 50; i++)
+            for (int i = 0; i <= 75; i++)
             {
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 10));
+                objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 10));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 10));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 10));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "pot", 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
             }
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
@@ -94,6 +93,8 @@ namespace LifeInTheWild
                 if (objets[i].getHP() <= 0)
                 {
                     objets.Remove(objets[i]);
+                    objets[i].Destroy(player);
+                    Console.WriteLine("destruction !!!");
                 }
             }
             base.Update(gameTime);
@@ -133,9 +134,9 @@ namespace LifeInTheWild
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.White);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
-            spriteBatch.DrawString(font, "Wood: ", new Vector2(10, 40), Color.White);
-            spriteBatch.DrawString(font, "Stone: ", new Vector2(10, 55), Color.White);
-            spriteBatch.DrawString(font, (player.getPosition().X)/tileSize + " "+(player.getPosition().Y)/tileSize, new Vector2(10, 70), Color.White);
+            spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.White);
+            spriteBatch.DrawString(font, "Stone: " + player.getRock(), new Vector2(10, 55), Color.White);
+            //spriteBatch.DrawString(font, (player.getPosition().X)/tileSize + " "+(player.getPosition().Y)/tileSize, new Vector2(10, 70), Color.White);
             spriteBatch.End();
 
             base.Draw(gameTime);

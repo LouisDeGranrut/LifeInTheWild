@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +7,18 @@ using System.Threading.Tasks;
 
 namespace LifeInTheWild
 {
-    class Arbre : Entity
+    class Rock : Entity
     {
-        public Arbre(Vector2 pos, string image, int hp) : base(pos, image, hp)
+
+        public Rock(Vector2 pos, string image, int hp) : base(pos, image, hp)
         {
             this.texture = Loader.Images[image];
         }
 
         public override void Destroy(Player player)
         {
-            player.addWood(4);
+            player.addRock(4);
         }
+
     }
 }
