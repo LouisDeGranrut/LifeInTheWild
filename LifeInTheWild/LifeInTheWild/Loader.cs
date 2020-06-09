@@ -24,7 +24,7 @@ namespace LifeInTheWild
             List<string> imagesName = new List<string>()
             {
                 "tree","sapin","rocks","pot","bush","door","chest","playerup","playerdown","playerleft","playerright",
-                "grass","grass2","grass3","flowers","dirt","campfire"
+                "grass","grass2","grass3","flowers","dirt","campfire","crop"
             };
 
             foreach(string img in imagesName)
@@ -40,7 +40,7 @@ namespace LifeInTheWild
 
             List<string> fileName = new List<string>()
             {
-                "hit"
+                "hit","destroy"
             };
 
             foreach (string file in fileName)

@@ -85,35 +85,40 @@ namespace LifeInTheWild
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         public void Update(List<Entity> objets, int[,] map)
         {
+            KeyboardState newState = Keyboard.GetState();  // get the newest state
+
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 yDir = speed;
                 this.texture = up;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Z)) {
                 yDir =-speed;
                 this.texture = down;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Q)){
                 xDir = -speed;
                 this.texture = left;
             }
+
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 xDir = speed;
                 this.texture = right;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.OemPlus))
+
+            if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//change l'outil équipé
             {
                 outil +=1;
             }
-            if (Keyboard.GetState().IsKeyDown(Keys.OemMinus))
+
+            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//change l'outil équipé
             {
                 outil -= 1;
             }
 
-            KeyboardState newState = Keyboard.GetState();  // get the newest state
-
-            if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))// PIRE CODE EVER
+            if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
                 hit.Play();
                 if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
@@ -146,7 +151,7 @@ namespace LifeInTheWild
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
+            spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.Red);
         }
 
         //Getters & Setters-------------------------------------------------------------------------------------------------------------------------------------
