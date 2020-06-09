@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -17,11 +19,12 @@ namespace LifeInTheWild
         private int tileSize = 16;//la taille des images du jeu (en pixels)
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
+        private SoundEffect playerHit;
         private Camera camera;//la caméra du jeu
-        private Loader loader;
-        private Player player;
+        private Loader loader;//gère les assets du jeu
 
         //Les objets du jeu
+        private Player player;
         private Arbre arbre;
         private Rock rock;
 
@@ -50,6 +53,9 @@ namespace LifeInTheWild
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("basic");
             Loader.LoadImages(this.Content);
+            Loader.LoadAudio(this.Content);
+
+            playerHit = Loader.Sounds["hit"];
 
             floorTiles = new Texture2D[10];
             floorTiles[0] = Loader.Images["grass"];
@@ -58,7 +64,7 @@ namespace LifeInTheWild
             floorTiles[3] = Loader.Images["flowers"];
             floorTiles[4] = Loader.Images["dirt"];
 
-            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright");
+            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit);
             camera = new Camera();
 
             for (int i = 0; i <= 75; i++)
@@ -94,7 +100,6 @@ namespace LifeInTheWild
                 {
                     objets.Remove(objets[i]);
                     objets[i].Destroy(player);
-                    Console.WriteLine("destruction !!!");
                 }
             }
             base.Update(gameTime);

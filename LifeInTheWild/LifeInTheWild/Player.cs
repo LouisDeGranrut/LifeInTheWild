@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -26,11 +27,13 @@ namespace LifeInTheWild
         private Texture2D left;
         private Texture2D right;
         private Texture2D up;
+        //Audio
+        SoundEffect hit;
 
         private KeyboardState oldState;
 
         // Constructeur
-        public Player(Vector2 pos, int hp, string image, string down, string left, string right) : base(pos, image, hp)
+        public Player(Vector2 pos, int hp, string image, string down, string left, string right, SoundEffect effect) : base(pos, image, hp)
         {
             this.hp = hp;
             this.wood = 0;
@@ -47,6 +50,9 @@ namespace LifeInTheWild
             this.left = Loader.Images[left];
             this.right = Loader.Images[right];
             this.up = Loader.Images[image];
+
+            this.hit = effect;
+
             oldState = Keyboard.GetState();
         }
         //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -109,6 +115,7 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))// PIRE CODE EVER
             {
+                hit.Play();
                 if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
                 {
                     CollisionManager(objets, position + velocity).Damage(1);// PIRE CODE EVER
