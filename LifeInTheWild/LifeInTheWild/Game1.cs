@@ -20,6 +20,7 @@ namespace LifeInTheWild
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
         private SoundEffect playerHit;
+        private SoundEffect playerMow;
         private Camera camera;//la caméra du jeu
         private Loader loader;//gère les assets du jeu
 
@@ -56,6 +57,7 @@ namespace LifeInTheWild
             Loader.LoadAudio(this.Content);
 
             playerHit = Loader.Sounds["hit"];
+            playerMow = Loader.Sounds["mow"];
 
             floorTiles = new Texture2D[10];
             floorTiles[0] = Loader.Images["grass"];
@@ -64,7 +66,7 @@ namespace LifeInTheWild
             floorTiles[3] = Loader.Images["flowers"];
             floorTiles[4] = Loader.Images["dirt"];
 
-            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit);
+            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
 
             for (int i = 0; i <= 75; i++)
@@ -73,7 +75,7 @@ namespace LifeInTheWild
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 7));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "crop", 10));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 7));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 10));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 10));
             }
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));

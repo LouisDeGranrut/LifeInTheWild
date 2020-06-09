@@ -40,7 +40,7 @@ namespace LifeInTheWild
 
             List<string> fileName = new List<string>()
             {
-                "hit","destroy"
+                "hit","destroy","mow"
             };
 
             foreach (string file in fileName)

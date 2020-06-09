@@ -29,11 +29,12 @@ namespace LifeInTheWild
         private Texture2D up;
         //Audio
         SoundEffect hit;
+        SoundEffect mow;
 
         private KeyboardState oldState;
 
         // Constructeur
-        public Player(Vector2 pos, int hp, string image, string down, string left, string right, SoundEffect effect) : base(pos, image, hp)
+        public Player(Vector2 pos, int hp, string image, string down, string left, string right, SoundEffect hit, SoundEffect mow) : base(pos, image, hp)
         {
             this.hp = hp;
             this.wood = 0;
@@ -51,7 +52,8 @@ namespace LifeInTheWild
             this.right = Loader.Images[right];
             this.up = Loader.Images[image];
 
-            this.hit = effect;
+            this.hit = hit;
+            this.mow = mow;
 
             oldState = Keyboard.GetState();
         }
@@ -120,14 +122,20 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
-                hit.Play();
                 if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
                 {
                     CollisionManager(objets, position + velocity).Damage(1);// PIRE CODE EVER
+                    hit.Play();                    
                 }
                 else
                 {
                     map[(int)((this.position.Y+8) / 16), (int)((this.position.X+8) / 16)] = 4;
+                    mow.Play();
+                    if (this.outil == 1)
+                    {
+                        //objets.Add(new Rock(new Vector2(this.position.X*16, this.position.Y*16), "rocks", 10));
+                        Console.WriteLine("PLANTAGE DE GRAINES");
+                    }
                 }
             }
 
@@ -151,7 +159,7 @@ namespace LifeInTheWild
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.Red);
+            spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
         }
 
         //Getters & Setters-------------------------------------------------------------------------------------------------------------------------------------
