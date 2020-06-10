@@ -182,7 +182,6 @@ namespace LifeInTheWild
         public void addWood(int add)
         {
             this.wood += add;
-            Console.WriteLine("he wood");
         }
 
         public int getRock()
@@ -193,7 +192,6 @@ namespace LifeInTheWild
         public void addRock(int add)
         {
             this.rock += add;
-            Console.WriteLine("he rock");
         }
     }
 }

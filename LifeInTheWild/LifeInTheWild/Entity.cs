@@ -32,10 +32,6 @@ namespace LifeInTheWild
             return this.hp;
         }
 
-        public virtual void Update()
-        {
-        }
-
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y + 2), Color.Gray);// potentiels ombres
@@ -49,6 +45,11 @@ namespace LifeInTheWild
             Console.WriteLine("HP: " + this.hp);
         }
 
-        public virtual void Destroy(Player player) {}
+        public virtual void Destroy(Player player) {
+        }
+
+        public virtual void Update()
+        {
+        }
     }
 }

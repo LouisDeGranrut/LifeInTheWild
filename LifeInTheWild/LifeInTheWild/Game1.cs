@@ -26,13 +26,13 @@ namespace LifeInTheWild
 
         //Les objets du jeu
         private Player player;
-        private Arbre arbre;
-        private Rock rock;
+        private Chicken chicken;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
 
-        private int[,] map = new int[mapSize, mapSize];//Tableau de mapSize rangs et mapSize colonnes
+        //Tableau de mapSize rangs et mapSize colonnes (représente la map)
+        private int[,] map = new int[mapSize, mapSize];
 
         public Game1()
         {
@@ -50,7 +50,6 @@ namespace LifeInTheWild
 
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("basic");
             Loader.LoadImages(this.Content);
@@ -68,7 +67,9 @@ namespace LifeInTheWild
 
             player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
+            chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left", 10);
 
+            //fais apparaitre 75 arbres, buissons, cailloux...
             for (int i = 0; i <= 75; i++)
             {
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 3));
@@ -83,7 +84,6 @@ namespace LifeInTheWild
 
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
-            objets.Add(new Chicken(new Vector2(512, 512), "chicken_left", 10));
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires
             for (int i = 0; i <= mapSize-1; i++)
@@ -104,15 +104,18 @@ namespace LifeInTheWild
             camera.Follow(player);
             for(int i = 0; i<objets.Count;i++)//pour toutes les entites
             {
+                objets[i].Update();//la mettre à jour
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
                     objets[i].Destroy(player);
                     Loader.Sounds["destroy"].Play();
                     Console.WriteLine("Destroying: " + objets[i]);
-                    objets.Remove(objets[i]);
+                    objets.Remove(objets[i]);//la retirer de la liste
                 }
-                objets[i].Update();//mettre a jour
             }
+
+            chicken.Update(objets);//met a jour la poule
+
             base.Update(gameTime);
         }
 
@@ -141,12 +144,14 @@ namespace LifeInTheWild
                 {
                     el.Draw(spriteBatch);
                 }
+
+                chicken.Draw(spriteBatch);
             }
 
             player.Draw(spriteBatch);
             spriteBatch.End();
 
-            //spritebatch pour l'interface--------------------------------------------------------------------------------------------------------
+            //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
             spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.White);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
