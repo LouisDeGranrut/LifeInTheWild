@@ -8,7 +8,9 @@
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bush.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/campfire.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/chest.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/chicken_left.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/crop.png</File>
+    <File>D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/destroy.wav</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/dirt.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/door.png</File>
@@ -34,6 +36,8 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File>chicken_left.png</File>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

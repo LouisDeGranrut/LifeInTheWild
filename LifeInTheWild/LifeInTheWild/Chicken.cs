@@ -7,17 +7,19 @@ using System.Threading.Tasks;
 
 namespace LifeInTheWild
 {
-    class Rock : Entity
+    class Chicken : Entity
     {
 
-        public Rock(Vector2 pos, string image, int hp) : base(pos, image, hp)
+        public Chicken(Vector2 pos, string image, int hp) : base(pos, image, hp)
         {
             this.texture = Loader.Images[image];
         }
 
-        public override void Destroy(Player player)
+        public override void Update()
         {
-            player.addRock(4);
+            this.position.X += 1;
+            this.position.Y += 1;
         }
+
     }
 }

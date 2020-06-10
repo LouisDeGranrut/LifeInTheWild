@@ -56,6 +56,30 @@
 /processorParam:TextureFormat=Color
 /build:chest.png
 
+#begin chicken_left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:chicken_left.png
+
+#begin chicken_left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:chicken_left.png
+
 #begin crop.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -67,6 +91,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:crop.png
+
+#begin D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png;chicken_left.png
 
 #begin destroy.wav
 /importer:WavImporter
@@ -163,12 +199,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:hit.wav
-
-#begin mow.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:mow.wav
 
 #begin mow.wav
 /importer:WavImporter

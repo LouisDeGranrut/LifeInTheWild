@@ -27,7 +27,7 @@ namespace LifeInTheWild
         private Texture2D left;
         private Texture2D right;
         private Texture2D up;
-        //Audio
+        //Audio--------------------------------------------
         SoundEffect hit;
         SoundEffect mow;
 
@@ -133,7 +133,8 @@ namespace LifeInTheWild
                     mow.Play();
                     if (this.outil == 1)
                     {
-                        //objets.Add(new Rock(new Vector2(this.position.X*16, this.position.Y*16), "rocks", 10));
+                        //TODO
+                        objets.Add(new Rock(new Vector2(this.position.X, this.position.Y), "crop", 10));
                         Console.WriteLine("PLANTAGE DE GRAINES");
                     }
                 }
@@ -172,6 +173,7 @@ namespace LifeInTheWild
         {
             return this.outil;
         }
+
         public int getWood()
         {
             return this.wood;
@@ -180,6 +182,7 @@ namespace LifeInTheWild
         public void addWood(int add)
         {
             this.wood += add;
+            Console.WriteLine("he wood");
         }
 
         public int getRock()

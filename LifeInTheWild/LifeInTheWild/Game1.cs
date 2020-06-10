@@ -71,14 +71,19 @@ namespace LifeInTheWild
 
             for (int i = 0; i <= 75; i++)
             {
-                objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 7));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 3));
+                objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 3));
+
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "crop", 10));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 7));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 10));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
             }
+
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
             objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
+            objets.Add(new Chicken(new Vector2(512, 512), "chicken_left", 10));
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires
             for (int i = 0; i <= mapSize-1; i++)
@@ -97,14 +102,16 @@ namespace LifeInTheWild
 
             player.Update(objets, map);
             camera.Follow(player);
-            for(int i = 0; i<objets.Count;i++)
+            for(int i = 0; i<objets.Count;i++)//pour toutes les entites
             {
-                if (objets[i].getHP() <= 0)
+                if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
-                    objets.Remove(objets[i]);
                     objets[i].Destroy(player);
                     Loader.Sounds["destroy"].Play();
+                    Console.WriteLine("Destroying: " + objets[i]);
+                    objets.Remove(objets[i]);
                 }
+                objets[i].Update();//mettre a jour
             }
             base.Update(gameTime);
         }
@@ -113,7 +120,7 @@ namespace LifeInTheWild
         {
             GraphicsDevice.Clear(Color.Black);//Couleur d'arrière plan
 
-            spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, camera.Transform*Matrix.CreateScale(2f));
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, camera.Transform * Matrix.CreateScale(2f));
 
             //Affichage du terrain------------------------------------------------------------------------------------------------
 
@@ -128,7 +135,7 @@ namespace LifeInTheWild
                     }
                 }
             }
-            foreach (Entity el in objets)//pour tous les objets de la map
+            foreach (Entity el in objets)//pour tous les objets de la map ("""optimisation pas indispensable""")
             {
                 if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 224 && player.getPosition().Y + 224 > el.getPosition().Y)
                 {
@@ -140,11 +147,11 @@ namespace LifeInTheWild
             spriteBatch.End();
 
             //spritebatch pour l'interface--------------------------------------------------------------------------------------------------------
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
             spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.White);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
             spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.White);
-            spriteBatch.DrawString(font, "Stone: " + player.getRock(), new Vector2(10, 55), Color.White);
+            spriteBatch.DrawString(font, "Rocks: " + player.getRock(), new Vector2(10, 55), Color.White);
             //spriteBatch.DrawString(font, (player.getPosition().X)/tileSize + " "+(player.getPosition().Y)/tileSize, new Vector2(10, 70), Color.White);
             spriteBatch.End();
 
