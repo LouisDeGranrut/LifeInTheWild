@@ -24,7 +24,7 @@ namespace LifeInTheWild
             List<string> imagesName = new List<string>()
             {
                 "tree","sapin","rocks","pot","bush","door","chest","playerup","playerdown","playerleft","playerright",
-                "grass","grass2","grass3","flowers","dirt","campfire","crop","chicken_left"
+                "grass","grass2","grass3","flowers","dirt","campfire","crop","chicken_left","chicken_right","chicken_up","chicken_down"
             };
 
             foreach(string img in imagesName)

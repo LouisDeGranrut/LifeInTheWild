@@ -31,7 +31,7 @@ namespace LifeInTheWild
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
         //Collisions avec les objets proche, retourne l'objet avec lequel la creature collisionne
-        private Entity CollisionManager(List<Entity> objets, Vector2 v)
+        public Entity CollisionManager(List<Entity> objets, Vector2 v)
         {
             Entity res = null;
             foreach (Entity el in objets)//pour tous les objets de la map
@@ -45,13 +45,13 @@ namespace LifeInTheWild
         }
 
         // Si l'objet en paramètre est à 16 unités de la créature, alors on retourne "vrai"
-        private bool checkDistance(Entity objet)
+        public bool checkDistance(Entity objet)
         {
             return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (16 * 16));
         }
 
         //retourne un booleen si la créature collisionne avec l'objet donné
-        private bool collisionObjet(Entity objet, Vector2 v)
+        public bool collisionObjet(Entity objet, Vector2 v)
         {
             return (v.X < objet.getPosition().X + 16 && v.X + 16 > objet.getPosition().X && v.Y < objet.getPosition().Y + 16 && v.Y + 16 > objet.getPosition().Y);
         }

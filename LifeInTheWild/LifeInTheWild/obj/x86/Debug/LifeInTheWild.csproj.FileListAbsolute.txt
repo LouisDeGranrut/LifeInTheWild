@@ -45,3 +45,6 @@ C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\crop.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\mow.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_left.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_right.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_down.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_up.xnb

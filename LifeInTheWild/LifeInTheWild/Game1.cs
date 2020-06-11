@@ -67,7 +67,7 @@ namespace LifeInTheWild
 
             player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
-            chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left", 10);
+            chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left","chicken_right", "chicken_up", "chicken_down", 10);
 
             //fais apparaitre 75 arbres, buissons, cailloux...
             for (int i = 0; i <= 75; i++)
