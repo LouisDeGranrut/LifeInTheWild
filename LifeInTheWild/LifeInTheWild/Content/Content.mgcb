@@ -68,18 +68,6 @@
 /processorParam:TextureFormat=Color
 /build:chicken_down.png
 
-#begin chicken_down.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:chicken_down.png
-
 #begin chicken_left.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -103,18 +91,6 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:chicken_right.png
-
-#begin chicken_up.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:chicken_up.png
 
 #begin chicken_up.png
 /importer:TextureImporter
@@ -247,6 +223,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:hit.wav
+
+#begin mow.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:mow.wav
 
 #begin mow.wav
 /importer:WavImporter
