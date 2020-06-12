@@ -14,19 +14,15 @@ namespace LifeInTheWild
         protected Vector2 velocity;
         protected Vector2 direction;
         protected float speed;
-        protected float yDir;
-        protected float xDir;
 
         public Creature(Vector2 pos, string image, int hp) : base(pos, image, hp)
         {
             //this.texture = Loader.Images[image];
 
-            this.speed = .4f;
+            this.speed = .8f;
             this.position = pos;
             this.direction = new Vector2(0, 0);
             this.velocity = new Vector2(0, 0);
-            yDir = 0;
-            xDir = 0;
         }
 
         //------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -59,10 +55,10 @@ namespace LifeInTheWild
         public virtual void Update(List<Entity> objets)
         {
 
-            //là chaque créature modifie xDir et yDir
+            //à ce niveau, chaque créature modifie xDir et yDir en fonction de son IA
 
-            velocity.X += xDir * (float)Math.Cos(-direction.X) - yDir * (float)Math.Sin(-direction.X);
-            velocity.Y += yDir * (float)Math.Cos(-direction.X) + xDir * (float)Math.Sin(-direction.X);
+            //Gestion des mouvements
+            velocity = direction * speed;
 
             if (CollisionManager(objets, position + new Vector2(velocity.X, 0)) == null){
                 position.X += velocity.X * speed;
@@ -73,8 +69,7 @@ namespace LifeInTheWild
             }
 
             velocity *= .85f;
-            xDir = 0;
-            yDir = 0;
+            direction = new Vector2(0, 0);
 
             base.Update();
         }

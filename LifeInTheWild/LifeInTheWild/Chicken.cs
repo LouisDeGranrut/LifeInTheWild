@@ -31,24 +31,24 @@ namespace LifeInTheWild
             switch (dir)
             {
                 case 0:
-                    xDir = speed;
+                    this.direction.X = 1;
                     this.texture = left;
                     break;
                 case 1:
-                    xDir -= speed;
+                    this.direction.X = -1;
                     this.texture = right;
                     break;
                 case 2:
-                    yDir = speed;
+                    this.direction.Y = 1;
                     this.texture = down;
                     break;
                 case 3:
-                    yDir = -speed;
+                    this.direction.Y = -1;
                     this.texture = up;
                     break;
                 case 4:
-                    xDir = 0;
-                    yDir = 0;
+                    this.direction.X = 0;
+                    this.direction.Y = 0;
                     break;
             }
 

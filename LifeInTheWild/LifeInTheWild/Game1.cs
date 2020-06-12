@@ -64,6 +64,7 @@ namespace LifeInTheWild
             floorTiles[2] = Loader.Images["grass3"];
             floorTiles[3] = Loader.Images["flowers"];
             floorTiles[4] = Loader.Images["dirt"];
+            floorTiles[5] = Loader.Images["woodTile"];
 
             player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
@@ -76,7 +77,7 @@ namespace LifeInTheWild
                 objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 3));
-
+                
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "crop", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
@@ -102,6 +103,7 @@ namespace LifeInTheWild
 
             player.Update(objets, map);
             camera.Follow(player);
+
             for(int i = 0; i<objets.Count;i++)//pour toutes les entites
             {
                 objets[i].Update();//la mettre à jour

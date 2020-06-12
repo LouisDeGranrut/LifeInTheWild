@@ -48,3 +48,5 @@ C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_right.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_down.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\chicken_up.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\wallFace.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\woodTile.xnb

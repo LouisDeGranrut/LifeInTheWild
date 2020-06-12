@@ -50,24 +50,24 @@ namespace LifeInTheWild
             KeyboardState newState = Keyboard.GetState();  // get the newest state
 
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
-                yDir = speed;
                 this.texture = up;
+                this.direction.Y = 1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z)) {
-                yDir =-speed;
                 this.texture = down;
+                this.direction.Y = -1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q)){
-                xDir = -speed;
                 this.texture = left;
+                this.direction.X = -1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
-                xDir = speed;
                 this.texture = right;
+                this.direction.X = 1;
             }
 
             if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//change l'outil équipé
@@ -82,20 +82,30 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
-                if (CollisionManager(objets, position+velocity) !=null)// PIRE CODE EVER
+                if (CollisionManager(objets, position + velocity) !=null)// PIRE CODE EVER
                 {
                     CollisionManager(objets, position + velocity).Damage(1);// PIRE CODE EVER
                     hit.Play();                    
                 }
-                else
+                else//si on collisionne avec rien
                 {
-                    map[(int)((this.position.Y+8) / 16), (int)((this.position.X+8) / 16)] = 4;
                     mow.Play();
-                    if (this.outil == 1)
+                    switch (outil)
                     {
-                        //TODO
-                        objets.Add(new Rock(new Vector2(this.position.X, this.position.Y), "crop", 10));
-                        Console.WriteLine("PLANTAGE DE GRAINES");
+                        case 1://planter des graines
+                            objets.Add(new Rock(new Vector2((this.position.X*16 + this.direction.X), (this.direction.Y*16 + this.direction.Y)), "crop", 10));
+                            Console.WriteLine("PLANTAGE DE GRAINES");
+                            break;
+                        case 2://mettre du parquet
+                            map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
+                            this.wood -= 1;
+                            break;
+                        case 3://labourer le sol
+                            map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
+                            break;
+                        case 4:
+                            objets.Add(new Wall(new Vector2(this.position.X, this.position.Y), "wallFace", 3));
+                            break;
                     }
                 }
             }
@@ -111,10 +121,6 @@ namespace LifeInTheWild
         }
 
         //Getters & Setters-------------------------------------------------------------------------------------------------------------------------------------
-        /*public int getHP()
-        {
-            return this.hp;
-        }*/
 
         public int getOutil()
         {

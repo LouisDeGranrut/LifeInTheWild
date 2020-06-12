@@ -1,4 +1,3 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/chicken_left.png","C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/chicken_left.xnb","TextureProcessor","Texture2DContent",416,1109,0,0950883
-"C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/mow.wav","C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/mow.xnb","SoundEffectProcessor","SoundEffectContent",166780,165061,0,129118
-"D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png","C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/chicken_left.xnb","TextureProcessor","Texture2DContent",385,1109,0,0060053
+"C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/chicken_left.png","C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/chicken_left.xnb","TextureProcessor","Texture2DContent",416,1109,0,090305
+"D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png","C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/chicken_left.xnb","TextureProcessor","Texture2DContent",385,1109,0,005006
