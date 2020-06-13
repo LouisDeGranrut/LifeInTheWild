@@ -97,11 +97,11 @@ namespace LifeInTheWild
                 if (CollisionManager(objets, position + dir*4) !=null)// PIRE CODE EVER
                 {
                     CollisionManager(objets, position + dir*4).Damage(1);// PIRE CODE EVER
-                    hit.Play();                    
+                    //hit.Play();                    
                 }
                 else//si on collisionne avec rien
                 {
-                    mow.Play();
+                    mow.Play();//son 
                     switch (outil)
                     {
                         case 1://planter des graines

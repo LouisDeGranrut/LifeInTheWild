@@ -140,21 +140,21 @@ namespace LifeInTheWild
             {
                 for (int colonne = 0; colonne <= mapSize-1; colonne++)
                 {
-                    //if (player.getPosition().X < colonne*tileSize + 224 && player.getPosition().X + 224 > colonne * tileSize && player.getPosition().Y < ligne * tileSize + 224 && player.getPosition().Y + 224 > ligne * tileSize)
-                    //{
+                    if (player.getPosition().X < colonne*tileSize + 224 && player.getPosition().X + 224 > colonne * tileSize && player.getPosition().Y < ligne * tileSize + 176 && player.getPosition().Y + 176 > ligne * tileSize)
+                    {
                         int id = map[ligne, colonne];
                         spriteBatch.Draw(floorTiles[id], new Vector2(colonne * tileSize, ligne * tileSize), Color.White);
-                    //}
+                    }
                 }
             }
 
             foreach (Entity el in objets)//pour tous les objets de la map ("""optimisation pas indispensable""")
             {
-                //if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 224 && player.getPosition().Y + 224 > el.getPosition().Y)
-                //{
+                if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
+                {
                     el.Draw(spriteBatch);
                     //spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
-                //}
+                }
             }
 
             player.Draw(spriteBatch);
