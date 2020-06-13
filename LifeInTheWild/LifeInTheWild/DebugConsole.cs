@@ -25,7 +25,7 @@ namespace LifeInTheWild
         {
             for(int i = 0; i < ligne; i++)
             {
-                spriteBatch.DrawString(font, log[i], new Vector2(150, i * 15), Color.White);
+                spriteBatch.DrawString(font, log[i], new Vector2(300, i * 15), Color.White);
             }
         }
     }

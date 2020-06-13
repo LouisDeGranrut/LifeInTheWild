@@ -41,7 +41,7 @@ namespace LifeInTheWild
         // Si l'objet en paramètre est à 16 unités de la créature, alors on retourne "vrai"
         public bool checkDistance(Entity objet)
         {
-            return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (16*16));
+            return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (256));
         }
 
         //retourne un booleen si la créature collisionne avec l'objet donné
@@ -62,9 +62,9 @@ namespace LifeInTheWild
             if (CollisionManager(objets, newPosition) == null){//si on a pas de collisions
                 position = newPosition;
             }
-            else
+            else//sinon
             {
-                DebugConsole.addLine("Collision");
+                //DebugConsole.addLine("Collision");
                 newPosition = OldPosition;
             }
 

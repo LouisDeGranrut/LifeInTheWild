@@ -29,7 +29,7 @@ namespace LifeInTheWild
         private Player player;
         private Chicken chicken;
 
-        private Texture2D rectTex;
+        private Texture2D rect;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -69,12 +69,14 @@ namespace LifeInTheWild
             floorTiles[4] = Loader.Images["dirt"];
             floorTiles[5] = Loader.Images["woodTile"];
 
-            rectTex = Loader.Images["rect"];
+            rect = new Texture2D(this.GraphicsDevice, 200, 120);
+            Color[] data = new Color[200 * 120];
+            for (int i = 0; i < data.Length; ++i) data[i] = Color.Gray;
+            rect.SetData(data);
+
             DebugConsole.addLine("   -Debug Console-:");
 
-
-            //                              512, 512
-            player = new Player(new Vector2(0, 0), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
+            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
             chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left","chicken_right", "chicken_up", "chicken_down", 10);
 
@@ -113,7 +115,7 @@ namespace LifeInTheWild
 
             for(int i = 0; i<objets.Count;i++)//pour toutes les entites
             {
-                objets[i].Update();//la mettre à jour
+                //objets[i].Update();//la mettre à jour
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
                     objets[i].Destroy(player);
@@ -124,14 +126,12 @@ namespace LifeInTheWild
             }
 
             chicken.Update(objets);//met a jour la poule
-
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);//Couleur d'arrière plan
-
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, camera.Transform * Matrix.CreateScale(2f));
 
             //Affichage du terrain------------------------------------------------------------------------------------------------
@@ -153,27 +153,27 @@ namespace LifeInTheWild
                 //if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 224 && player.getPosition().Y + 224 > el.getPosition().Y)
                 //{
                     el.Draw(spriteBatch);
-                    spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
+                    //spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
                 //}
-
-                chicken.Draw(spriteBatch);
             }
 
             player.Draw(spriteBatch);
-
-            spriteBatch.Draw(rectTex, new Vector2((int)player.getPosition().X, (int)player.getPosition().Y), Color.Fuchsia);
+            chicken.Draw(spriteBatch);
+            //spriteBatch.Draw(rect, new Vector2((int)player.getPosition().X, (int)player.getPosition().Y), Color.Fuchsia);
 
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.White);
-            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
-            spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.White);
-            spriteBatch.DrawString(font, "Rocks: " + player.getRock(), new Vector2(10, 55), Color.White);
-            //spriteBatch.DrawString(font, ("Player Position: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.White);
-            //spriteBatch.DrawString(font, "Player Map Position: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.White);
-            //spriteBatch.DrawString(font, "Player Direction: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.White);
+            spriteBatch.Draw(rect, new Vector2(0, 0), Color.White);
+            spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
+            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.LightGreen);
+            spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.LightGreen);
+            spriteBatch.DrawString(font, "Rocks: " + player.getRock(), new Vector2(10, 55), Color.LightGreen);
+            spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.LightGreen);
+            spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
+            spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
+            spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
             DebugConsole.Draw(spriteBatch, font);
             spriteBatch.End();
 

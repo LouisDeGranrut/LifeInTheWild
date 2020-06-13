@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Microsoft.Win32.SafeHandles;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -104,11 +105,12 @@ namespace LifeInTheWild
                     switch (outil)
                     {
                         case 1://planter des graines
-                            double posX = Math.Round(this.position.X + this.dir.X*16);
-                            double posY = Math.Round(this.position.Y + this.dir.Y*16);
+                            double posX = Math.Round(this.position.X + (this.dir.X*16));
+                            double posY = Math.Round(this.position.Y + (this.dir.Y*16));
                             Entity a = new Rock(new Vector2((float)posX, (float)posY), "crop", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
+                            DebugConsole.addLine(posX + " " + posY);
                             break;
                         case 2://mettre du parquet
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
