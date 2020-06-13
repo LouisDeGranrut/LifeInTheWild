@@ -171,7 +171,7 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
-            //DebugConsole.Draw(spriteBatch, font);
+            DebugConsole.Draw(spriteBatch, font, new Vector2(10,140));
             spriteBatch.End();
 
             base.Draw(gameTime);

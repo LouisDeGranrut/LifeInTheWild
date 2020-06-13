@@ -21,11 +21,11 @@ namespace LifeInTheWild
         }
 
         //On affiche tous le contenu du tableau
-        public static void Draw(SpriteBatch spriteBatch, SpriteFont font)
+        public static void Draw(SpriteBatch spriteBatch, SpriteFont font, Vector2 pos)
         {
             for(int i = 0; i < ligne; i++)
             {
-                spriteBatch.DrawString(font, log[i], new Vector2(300, i * 15), Color.White);
+                spriteBatch.DrawString(font, log[i], new Vector2(pos.X, pos.Y + (i * 15)), Color.White);
             }
         }
     }

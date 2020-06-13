@@ -110,7 +110,6 @@ namespace LifeInTheWild
                             Entity a = new Rock(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
-                            DebugConsole.addLine(posX + " " + posY);
                             break;
                         case 2://mettre du parquet
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
@@ -124,8 +123,7 @@ namespace LifeInTheWild
                             posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
                             a = new Rock(new Vector2((float)posX * 16, (float)posY * 16), "wallFace", 2);
                             objets.Add(a);
-                            //DebugConsole.addLine("Spawning: " + a);
-                            //DebugConsole.addLine(posX + " " + posY);
+                            DebugConsole.addLine("Spawning: " + a);
                             break;
                     }
                 }
