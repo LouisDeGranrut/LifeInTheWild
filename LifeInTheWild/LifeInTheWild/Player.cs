@@ -56,21 +56,21 @@ namespace LifeInTheWild
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;
                 this.direction.Y = 1;
-                this.dir = direction;
+                this.dir = new Vector2(0,1);
                 this.newPosition.Y += 1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z)) {
                 this.texture = down;
                 this.direction.Y = -1;
-                this.dir = direction;
+                this.dir = new Vector2(0, -1);
                 this.newPosition.Y -= 1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q)){
                 this.texture = left;
                 this.direction.X = -1;
-                this.dir = direction;
+                this.dir = new Vector2(-1, 0);
                 this.newPosition.X -= 1;
             }
 
@@ -78,7 +78,7 @@ namespace LifeInTheWild
             {
                 this.texture = right;
                 this.direction.X = 1;
-                this.dir = direction;
+                this.dir = new Vector2(1, 0);
                 this.newPosition.X += 1;
             }
 
