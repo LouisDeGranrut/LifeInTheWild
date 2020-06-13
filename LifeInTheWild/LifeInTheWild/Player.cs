@@ -49,23 +49,28 @@ namespace LifeInTheWild
         public virtual void Update(List<Entity> objets, int[,] map)
         {
             KeyboardState newState = Keyboard.GetState();  // get the newest state
+            Vector2 newPosition = position;
+
 
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;
                 this.direction.Y = 1;
                 this.dir = direction;
+                this.newPosition.Y += 1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z)) {
                 this.texture = down;
                 this.direction.Y = -1;
                 this.dir = direction;
+                this.newPosition.Y -= 1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q)){
                 this.texture = left;
                 this.direction.X = -1;
                 this.dir = direction;
+                this.newPosition.X -= 1;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
@@ -73,6 +78,7 @@ namespace LifeInTheWild
                 this.texture = right;
                 this.direction.X = 1;
                 this.dir = direction;
+                this.newPosition.X += 1;
             }
 
             if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//change l'outil équipé
@@ -87,9 +93,9 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
-                if (CollisionManager(objets, position + velocity) !=null)// PIRE CODE EVER
+                if (CollisionManager(objets, position + dir*4) !=null)// PIRE CODE EVER
                 {
-                    CollisionManager(objets, position + velocity).Damage(1);// PIRE CODE EVER
+                    CollisionManager(objets, position + dir*4).Damage(1);// PIRE CODE EVER
                     hit.Play();                    
                 }
                 else//si on collisionne avec rien
