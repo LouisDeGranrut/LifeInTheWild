@@ -29,7 +29,7 @@ namespace LifeInTheWild
         private Player player;
         private Chicken chicken;
 
-        private Texture2D rect;
+        private Texture2D rectTex;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -69,12 +69,8 @@ namespace LifeInTheWild
             floorTiles[4] = Loader.Images["dirt"];
             floorTiles[5] = Loader.Images["woodTile"];
 
-            rect = new Texture2D(this.GraphicsDevice, 200, 120);
-            Color[] data = new Color[200 * 120];
-            for (int i = 0; i < data.Length; ++i) data[i] = Color.Gray;
-            rect.SetData(data);
-
             DebugConsole.addLine("   -Debug Console-:");
+            rectTex = Loader.Images["rect"];
 
             player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
@@ -159,13 +155,14 @@ namespace LifeInTheWild
 
             player.Draw(spriteBatch);
             chicken.Draw(spriteBatch);
-            //spriteBatch.Draw(rect, new Vector2((int)player.getPosition().X, (int)player.getPosition().Y), Color.Fuchsia);
+            double posX = Math.Round((player.getPosition().X + (player.getDir().X * 16)) / 16);
+            double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * 16)) / 16);
+            spriteBatch.Draw(rectTex, new Vector2((int)posX *16,(int)posY*16), Color.Fuchsia);
 
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            spriteBatch.Draw(rect, new Vector2(0, 0), Color.White);
             spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.LightGreen);
             spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.LightGreen);
@@ -174,7 +171,7 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
-            DebugConsole.Draw(spriteBatch, font);
+            //DebugConsole.Draw(spriteBatch, font);
             spriteBatch.End();
 
             base.Draw(gameTime);

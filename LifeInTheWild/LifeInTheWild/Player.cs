@@ -97,7 +97,7 @@ namespace LifeInTheWild
                 if (CollisionManager(objets, position + dir*4) !=null)// PIRE CODE EVER
                 {
                     CollisionManager(objets, position + dir*4).Damage(1);// PIRE CODE EVER
-                    //hit.Play();                    
+                    hit.Play();                    
                 }
                 else//si on collisionne avec rien
                 {
@@ -105,9 +105,9 @@ namespace LifeInTheWild
                     switch (outil)
                     {
                         case 1://planter des graines
-                            double posX = Math.Round(this.position.X + (this.dir.X*16));
-                            double posY = Math.Round(this.position.Y + (this.dir.Y*16));
-                            Entity a = new Rock(new Vector2((float)posX, (float)posY), "crop", 2);
+                            double posX = Math.Round((this.position.X + (this.dir.X*16))/16);
+                            double posY = Math.Round((this.position.Y + (this.dir.Y*16))/16);
+                            Entity a = new Rock(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
                             DebugConsole.addLine(posX + " " + posY);
@@ -120,11 +120,12 @@ namespace LifeInTheWild
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
                             break;
                         case 4:
-                            posX = Math.Round(this.position.X + this.dir.X * 16);
-                            posY = Math.Round(this.position.Y + this.dir.Y * 16);
-                            a = new Rock(new Vector2((float)posX, (float)posY), "wallFace", 2);
+                            posX = Math.Round((this.position.X + (this.dir.X * 16)) / 16);
+                            posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
+                            a = new Rock(new Vector2((float)posX * 16, (float)posY * 16), "wallFace", 2);
                             objets.Add(a);
-                            DebugConsole.addLine("Spawning: " + a);
+                            //DebugConsole.addLine("Spawning: " + a);
+                            //DebugConsole.addLine(posX + " " + posY);
                             break;
                     }
                 }
