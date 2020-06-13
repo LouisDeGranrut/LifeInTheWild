@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace LifeInTheWild
 {
@@ -27,6 +28,8 @@ namespace LifeInTheWild
         //Les objets du jeu
         private Player player;
         private Chicken chicken;
+
+        private Texture2D rectTex;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -66,7 +69,12 @@ namespace LifeInTheWild
             floorTiles[4] = Loader.Images["dirt"];
             floorTiles[5] = Loader.Images["woodTile"];
 
-            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
+            rectTex = Loader.Images["rect"];
+            DebugConsole.addLine("   -Debug Console-:");
+
+
+            //                              512, 512
+            player = new Player(new Vector2(0, 0), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
             camera = new Camera();
             chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left","chicken_right", "chicken_up", "chicken_down", 10);
 
@@ -77,16 +85,15 @@ namespace LifeInTheWild
                 objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 3));
-                
+
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "crop", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
             }
 
-            objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", 10));
-            objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
-
-            //Charge un tableau 2D et le remplis de valeurs aléatoires
+            //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)
             for (int i = 0; i <= mapSize-1; i++)
             {
                 for (int j = 0; j <= mapSize-1; j++)
@@ -111,7 +118,7 @@ namespace LifeInTheWild
                 {
                     objets[i].Destroy(player);
                     Loader.Sounds["destroy"].Play();
-                    Console.WriteLine("Destroying: " + objets[i]);
+                    DebugConsole.addLine("Destroying: " + objets[i]);
                     objets.Remove(objets[i]);//la retirer de la liste
                 }
             }
@@ -133,24 +140,29 @@ namespace LifeInTheWild
             {
                 for (int colonne = 0; colonne <= mapSize-1; colonne++)
                 {
-                    if (player.getPosition().X < colonne*tileSize + 224 && player.getPosition().X + 224 > colonne * tileSize && player.getPosition().Y < ligne * tileSize + 224 && player.getPosition().Y + 224 > ligne * tileSize)
-                    {
+                    //if (player.getPosition().X < colonne*tileSize + 224 && player.getPosition().X + 224 > colonne * tileSize && player.getPosition().Y < ligne * tileSize + 224 && player.getPosition().Y + 224 > ligne * tileSize)
+                    //{
                         int id = map[ligne, colonne];
                         spriteBatch.Draw(floorTiles[id], new Vector2(colonne * tileSize, ligne * tileSize), Color.White);
-                    }
+                    //}
                 }
             }
+
             foreach (Entity el in objets)//pour tous les objets de la map ("""optimisation pas indispensable""")
             {
-                if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 224 && player.getPosition().Y + 224 > el.getPosition().Y)
-                {
+                //if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 224 && player.getPosition().Y + 224 > el.getPosition().Y)
+                //{
                     el.Draw(spriteBatch);
-                }
+                    spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
+                //}
 
                 chicken.Draw(spriteBatch);
             }
 
             player.Draw(spriteBatch);
+
+            spriteBatch.Draw(rectTex, new Vector2((int)player.getPosition().X, (int)player.getPosition().Y), Color.Fuchsia);
+
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
@@ -159,7 +171,10 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.White);
             spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.White);
             spriteBatch.DrawString(font, "Rocks: " + player.getRock(), new Vector2(10, 55), Color.White);
-            //spriteBatch.DrawString(font, (player.getPosition().X)/tileSize + " "+(player.getPosition().Y)/tileSize, new Vector2(10, 70), Color.White);
+            //spriteBatch.DrawString(font, ("Player Position: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.White);
+            //spriteBatch.DrawString(font, "Player Map Position: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.White);
+            //spriteBatch.DrawString(font, "Player Direction: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.White);
+            DebugConsole.Draw(spriteBatch, font);
             spriteBatch.End();
 
             base.Draw(gameTime);

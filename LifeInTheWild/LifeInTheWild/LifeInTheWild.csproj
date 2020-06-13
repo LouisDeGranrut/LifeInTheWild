@@ -45,6 +45,7 @@
     <Compile Include="Camera.cs" />
     <Compile Include="Chicken.cs" />
     <Compile Include="Creature.cs" />
+    <Compile Include="DebugConsole.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Loader.cs" />

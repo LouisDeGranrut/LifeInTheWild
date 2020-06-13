@@ -19,7 +19,7 @@ namespace LifeInTheWild
         {
             //this.texture = Loader.Images[image];
 
-            this.speed = .8f;
+            this.speed = .4f;
             this.position = pos;
             this.direction = new Vector2(0, 0);
             this.velocity = new Vector2(0, 0);
@@ -43,13 +43,17 @@ namespace LifeInTheWild
         // Si l'objet en paramètre est à 16 unités de la créature, alors on retourne "vrai"
         public bool checkDistance(Entity objet)
         {
-            return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (16 * 16));
+            return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (16*16));
         }
 
         //retourne un booleen si la créature collisionne avec l'objet donné
         public bool collisionObjet(Entity objet, Vector2 v)
         {
-            return (v.X < objet.getPosition().X + 16 && v.X + 16 > objet.getPosition().X && v.Y < objet.getPosition().Y + 16 && v.Y + 16 > objet.getPosition().Y);
+            int size = 14;
+            return (v.X < objet.getPosition().X + size &&
+                    v.X + size > objet.getPosition().X &&
+                    v.Y < objet.getPosition().Y + size &&
+                    v.Y + size > objet.getPosition().Y);
         }
 
         public virtual void Update(List<Entity> objets)
@@ -58,17 +62,28 @@ namespace LifeInTheWild
             //à ce niveau, chaque créature modifie xDir et yDir en fonction de son IA
 
             //Gestion des mouvements
-            velocity = direction * speed;
+            velocity += direction * speed;
 
-            if (CollisionManager(objets, position + new Vector2(velocity.X, 0)) == null){
+            if (CollisionManager(objets, position + new Vector2(velocity.X * speed, 0)) == null){
                 position.X += velocity.X * speed;
             }
-
-            if (CollisionManager(objets, position + new Vector2(0,velocity.Y)) == null){
-                position.Y += velocity.Y * speed;
+            else
+            {
+                //DebugConsole.addLine("Collision en X");
+                //this.position.X += this.direction.X;
             }
 
-            velocity *= .85f;
+            if (CollisionManager(objets, position + new Vector2(0, velocity.Y * speed)) == null){
+                position.Y += velocity.Y * speed;
+            }
+            else
+            {
+                //DebugConsole.addLine("Collision en Y");
+                //this.position.Y += this.direction.Y;
+            }
+
+            velocity *= .80f;
+            
             direction = new Vector2(0, 0);
 
             base.Update();

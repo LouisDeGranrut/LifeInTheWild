@@ -42,7 +42,7 @@ namespace LifeInTheWild
         public void Damage(int damage)
         {
             this.hp -= damage;
-            Console.WriteLine("HP: " + this.hp);
+            DebugConsole.addLine("HP: " + this.hp);
         }
 
         public virtual void Destroy(Player player) {

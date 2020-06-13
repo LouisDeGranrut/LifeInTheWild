@@ -26,6 +26,7 @@ namespace LifeInTheWild
         SoundEffect mow;
 
         private KeyboardState oldState;
+        private new Vector2 dir;//permet de stocker la direction du joueur
 
         // Constructeur
         public Player(Vector2 pos, int hp, string image, string down, string left, string right, SoundEffect hit, SoundEffect mow) : base(pos, image, hp)
@@ -52,22 +53,26 @@ namespace LifeInTheWild
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;
                 this.direction.Y = 1;
+                this.dir = direction;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Z)) {
                 this.texture = down;
                 this.direction.Y = -1;
+                this.dir = direction;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Q)){
                 this.texture = left;
                 this.direction.X = -1;
+                this.dir = direction;
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.D))
             {
                 this.texture = right;
                 this.direction.X = 1;
+                this.dir = direction;
             }
 
             if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//change l'outil équipé
@@ -93,8 +98,11 @@ namespace LifeInTheWild
                     switch (outil)
                     {
                         case 1://planter des graines
-                            objets.Add(new Rock(new Vector2((this.position.X*16 + this.direction.X), (this.direction.Y*16 + this.direction.Y)), "crop", 10));
-                            Console.WriteLine("PLANTAGE DE GRAINES");
+                            double posX = Math.Round(this.position.X + this.dir.X*16);
+                            double posY = Math.Round(this.position.Y + this.dir.Y*16);
+                            Entity a = new Rock(new Vector2((float)posX, (float)posY), "crop", 2);
+                            objets.Add(a);
+                            DebugConsole.addLine("Spawning: " + a);
                             break;
                         case 2://mettre du parquet
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
@@ -104,14 +112,17 @@ namespace LifeInTheWild
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
                             break;
                         case 4:
-                            objets.Add(new Wall(new Vector2(this.position.X, this.position.Y), "wallFace", 3));
+                            posX = Math.Round(this.position.X + this.dir.X * 16);
+                            posY = Math.Round(this.position.Y + this.dir.Y * 16);
+                            a = new Rock(new Vector2((float)posX, (float)posY), "wallFace", 2);
+                            objets.Add(a);
+                            DebugConsole.addLine("Spawning: " + a);
                             break;
                     }
                 }
             }
 
             oldState = newState;
-
             base.Update(objets);
         }
 
@@ -125,6 +136,16 @@ namespace LifeInTheWild
         public int getOutil()
         {
             return this.outil;
+        }
+
+        public Vector2 getDir()
+        {
+            return this.dir;
+        }
+
+        public Vector2 getDirection()
+        {
+            return this.direction;
         }
 
         public int getWood()
