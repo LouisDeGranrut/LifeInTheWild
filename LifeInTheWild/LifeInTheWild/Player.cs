@@ -92,7 +92,15 @@ namespace LifeInTheWild
                 outil -= 1;
             }
 
-            if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
+            if (newState.IsKeyDown(Keys.E) && oldState.IsKeyUp(Keys.E))
+            {
+                //if (CollisionManager(objets, position + dir * 4) != null && CollisionManager(objets, position + dir * 4) is Door)// PIRE CODE EVER
+               // {
+                //    CollisionManager(objets, position + dir * 4).setOpen(false);
+                //}
+            }
+
+                if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
                 if (CollisionManager(objets, position + dir*4) !=null)// PIRE CODE EVER
                 {

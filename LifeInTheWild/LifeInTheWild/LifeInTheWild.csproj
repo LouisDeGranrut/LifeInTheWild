@@ -41,19 +41,20 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Arbre.cs" />
+    <Compile Include="Objects\Arbre.cs" />
     <Compile Include="Camera.cs" />
-    <Compile Include="Chicken.cs" />
+    <Compile Include="Objects\Chicken.cs" />
     <Compile Include="Creature.cs" />
     <Compile Include="DebugConsole.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Loader.cs" />
+    <Compile Include="Objects\Door.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rock.cs" />
-    <Compile Include="Wall.cs" />
+    <Compile Include="Objects\Rock.cs" />
+    <Compile Include="Objects\Wall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
