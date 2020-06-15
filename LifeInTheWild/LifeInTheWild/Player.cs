@@ -15,8 +15,6 @@ namespace LifeInTheWild
     {
         //Gameplay-----------------------------------------
         private int outil;//l'outils équipé
-        private int rock;//Inventaire
-        private int wood;//inventaire
         //Textures-----------------------------------------
         private Texture2D down;
         private Texture2D left;
@@ -27,18 +25,16 @@ namespace LifeInTheWild
         SoundEffect mow;
 
         private KeyboardState oldState;
-        private new Vector2 dir;//permet de stocker la direction du joueur
+        private Vector2 dir;//permet de stocker la direction du joueur
 
         // Constructeur
-        public Player(Vector2 pos, int hp, string image, string down, string left, string right, SoundEffect hit, SoundEffect mow) : base(pos, image, hp)
+        public Player(Vector2 pos, int hp, string image, SoundEffect hit, SoundEffect mow, Game game) : base(pos, image, hp)
         {
             this.hp = hp;
-            this.wood = 0;
-            this.rock = 0;
 
-            this.down = Loader.Images[down];
-            this.left = Loader.Images[left];
-            this.right = Loader.Images[right];
+            this.down = Loader.Images["playerdown"];
+            this.left = Loader.Images["playerleft"];
+            this.right = Loader.Images["playerright"];
             this.up = Loader.Images[image];
 
             this.hit = hit;
@@ -47,7 +43,7 @@ namespace LifeInTheWild
             oldState = Keyboard.GetState();
         }
 
-        public virtual void Update(List<Entity> objets, int[,] map)
+        public virtual void Update(List<Entity> objets, int[,] map, Inventaire inventaire)
         {
             KeyboardState newState = Keyboard.GetState();  // get the newest state
             Vector2 newPosition = position;
@@ -82,12 +78,12 @@ namespace LifeInTheWild
                 this.newPosition.X += 1;
             }
 
-            if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//change l'outil équipé
+            if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))
             {
                 outil +=1;
             }
 
-            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//change l'outil équipé
+            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))
             {
                 outil -= 1;
             }
@@ -100,7 +96,12 @@ namespace LifeInTheWild
                 //}
             }
 
-                if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
+            if (newState.IsKeyDown(Keys.I) && oldState.IsKeyUp(Keys.I))
+            {
+                inventaire.Activate();
+            }
+
+            if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
                 if (CollisionManager(objets, position + dir*4) !=null)// PIRE CODE EVER
                 {
@@ -121,7 +122,6 @@ namespace LifeInTheWild
                             break;
                         case 2://mettre du parquet
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
-                            this.wood -= 1;
                             break;
                         case 3://labourer le sol
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
@@ -144,6 +144,7 @@ namespace LifeInTheWild
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
+
         }
 
         //Getters & Setters-------------------------------------------------------------------------------------------------------------------------------------
@@ -161,26 +162,6 @@ namespace LifeInTheWild
         public Vector2 getDirection()
         {
             return this.direction;
-        }
-
-        public int getWood()
-        {
-            return this.wood;
-        }
-
-        public void addWood(int add)
-        {
-            this.wood += add;
-        }
-
-        public int getRock()
-        {
-            return this.rock;
-        }
-
-        public void addRock(int add)
-        {
-            this.rock += add;
         }
     }
 }

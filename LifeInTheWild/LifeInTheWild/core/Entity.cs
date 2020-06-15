@@ -45,7 +45,7 @@ namespace LifeInTheWild
             DebugConsole.addLine("HP: " + this.hp);
         }
 
-        public virtual void Destroy(Player player) {
+        public virtual void Destroy(Inventaire inventaire) {
         }
 
         public virtual void Update()

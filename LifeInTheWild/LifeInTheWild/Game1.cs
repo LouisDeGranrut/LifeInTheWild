@@ -16,14 +16,13 @@ namespace LifeInTheWild
         public static int screenWidth, screenHeight;//la taille de l'écran
         Random rnd = new Random();//le générateur de nombres aléatoire
         private SpriteFont font;//la police d'écriture du jeu
-
+        private static Inventaire inventaire;//inventaire du jeu
         private int tileSize = 16;//la taille des images du jeu (en pixels)
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
         private SoundEffect playerHit;
         private SoundEffect playerMow;
         private Camera camera;//la caméra du jeu
-        private Loader loader;//gère les assets du jeu
 
         //Les objets du jeu
         private Player player;
@@ -58,6 +57,8 @@ namespace LifeInTheWild
             Loader.LoadImages(this.Content);
             Loader.LoadAudio(this.Content);
 
+            inventaire = new Inventaire(this);
+
             playerHit = Loader.Sounds["hit"];
             playerMow = Loader.Sounds["mow"];
 
@@ -72,9 +73,9 @@ namespace LifeInTheWild
             DebugConsole.addLine("   -Debug Console-:");
             rectTex = Loader.Images["rect"];
 
-            player = new Player(new Vector2(512, 512), 10, "playerup", "playerdown", "playerleft", "playerright", playerHit, playerMow);
+            player = new Player(new Vector2(512, 512), 10, "playerup", playerHit, playerMow, this);
             camera = new Camera();
-            chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left","chicken_right", "chicken_up", "chicken_down", 10);
+            chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left", 10);
 
             //fais apparaitre 75 arbres, buissons, cailloux...
             for (int i = 0; i <= 75; i++)
@@ -105,7 +106,7 @@ namespace LifeInTheWild
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(objets, map);
+            player.Update(objets, map, inventaire);
             camera.Follow(player);
 
             for(int i = 0; i<objets.Count;i++)//pour toutes les entites
@@ -113,7 +114,7 @@ namespace LifeInTheWild
                 //objets[i].Update();//la mettre à jour
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
-                    objets[i].Destroy(player);
+                    objets[i].Destroy(inventaire);
                     Loader.Sounds["destroy"].Play();
                     DebugConsole.addLine("Destroying: " + objets[i]);
                     objets.Remove(objets[i]);//la retirer de la liste
@@ -164,13 +165,13 @@ namespace LifeInTheWild
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
             spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.LightGreen);
-            spriteBatch.DrawString(font, "Wood: " + player.getWood(), new Vector2(10, 40), Color.LightGreen);
-            spriteBatch.DrawString(font, "Rocks: " + player.getRock(), new Vector2(10, 55), Color.LightGreen);
             spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
             DebugConsole.Draw(spriteBatch, font, new Vector2(10,140));
+            if (inventaire.isActive)
+                inventaire.Draw(spriteBatch, font);
             spriteBatch.End();
 
             base.Draw(gameTime);

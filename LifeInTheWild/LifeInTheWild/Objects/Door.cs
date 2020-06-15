@@ -25,15 +25,7 @@ namespace LifeInTheWild
 
         public void setOpen(bool open)
         {
-            if (open)
-            {
-                this.texture = openTex;
-            }
-            else
-            {
-                this.texture = closeTex;
-            }
-            this.open = open;
+            this.open = !open;
         }
 
         public override void Draw(SpriteBatch spriteBatch)

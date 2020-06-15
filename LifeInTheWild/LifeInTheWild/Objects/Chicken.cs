@@ -15,12 +15,12 @@ namespace LifeInTheWild
         private Texture2D left;
         private Texture2D down;
         private Texture2D up;
-        public Chicken(Vector2 pos, string image, string right,string up, string down, int hp) : base(pos, image, hp)
+        public Chicken(Vector2 pos, string image, int hp) : base(pos, image, hp)
         {
-            this.right = Loader.Images[right];
+            this.right = Loader.Images["chicken_right"];
             this.left = Loader.Images[image];
-            this.up = Loader.Images[up];
-            this.down = Loader.Images[down];
+            this.up = Loader.Images["chicken_up"];
+            this.down = Loader.Images["chicken_down"];
         }
 
         public override void Update(List<Entity> objets)

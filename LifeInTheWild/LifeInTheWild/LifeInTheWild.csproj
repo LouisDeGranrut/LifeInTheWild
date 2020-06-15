@@ -41,15 +41,18 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Item.cs" />
+    <Compile Include="Inventaire.cs" />
     <Compile Include="Objects\Arbre.cs" />
-    <Compile Include="Camera.cs" />
+    <Compile Include="core\Camera.cs" />
     <Compile Include="Objects\Chicken.cs" />
-    <Compile Include="Creature.cs" />
-    <Compile Include="DebugConsole.cs" />
-    <Compile Include="Entity.cs" />
+    <Compile Include="core\Creature.cs" />
+    <Compile Include="core\DebugConsole.cs" />
+    <Compile Include="core\Entity.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="Loader.cs" />
+    <Compile Include="core\Loader.cs" />
     <Compile Include="Objects\Door.cs" />
+    <Compile Include="core\Overlay.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

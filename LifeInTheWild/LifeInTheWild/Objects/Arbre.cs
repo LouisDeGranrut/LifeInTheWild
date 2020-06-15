@@ -15,9 +15,10 @@ namespace LifeInTheWild
             this.texture = Loader.Images[image];
         }
 
-        public override void Destroy(Player player)
+        public override void Destroy(Inventaire inventaire)
         {
-            player.addWood(4);
+            inventaire.AddItem(new Item("test", 1));
         }
+
     }
 }

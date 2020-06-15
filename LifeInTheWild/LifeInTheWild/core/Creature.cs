@@ -64,7 +64,6 @@ namespace LifeInTheWild
             }
             else//sinon
             {
-                //DebugConsole.addLine("Collision");
                 newPosition = OldPosition;
             }
 

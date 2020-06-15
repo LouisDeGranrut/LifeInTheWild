@@ -52,3 +52,4 @@ C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\woodTile.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\rect.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\door_open.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\window.xnb
