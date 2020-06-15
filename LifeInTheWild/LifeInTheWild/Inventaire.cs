@@ -37,7 +37,7 @@ namespace LifeInTheWild
                 spriteBatch.Draw(window, new Rectangle(0,0, 920/2,680/2), Color.White);
                 for(int i = 0; i<items.Count; i++)
                 {
-                    spriteBatch.DrawString(font, items[i].ToString(), new Vector2(50, 70), Color.White);
+                    spriteBatch.DrawString(font, "-" + items[i].ToString(), new Vector2(50, 70+(15*i)), Color.Red);
                 }
                 spriteBatch.DrawString(font, "INVENTAIRE", new Vector2(50, 50), Color.Red);
             }
