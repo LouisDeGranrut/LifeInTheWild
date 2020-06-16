@@ -1,0 +1,7 @@
+﻿toDo:
+
+faire en sorte que la console ne dépasse pas de l'écran
+diminuer la charge sur la ram (trouver l'origine de la consommation)
+régler le bug d'ajout  d'item dans l'inventaire
+trouver un clavier avec un numpad pour tester le crafting
+améliorer les panneaux en leur donnant leur propre overlay plutot que de print leur texte dans la console
