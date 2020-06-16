@@ -43,7 +43,7 @@ namespace LifeInTheWild
             oldState = Keyboard.GetState();
         }
 
-        public virtual void Update(List<Entity> objets, int[,] map, Inventaire inventaire)
+        public virtual void Update(List<Entity> objets, int[,] map, Inventaire inventaire, Crafting crafting)
         {
             KeyboardState newState = Keyboard.GetState();  // get the newest state
             Vector2 newPosition = position;
@@ -78,12 +78,12 @@ namespace LifeInTheWild
                 this.newPosition.X += 1;
             }
 
-            if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))
+            if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//TEMPORAIRE
             {
                 outil +=1;
             }
 
-            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))
+            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//TEMPORAIRE
             {
                 outil -= 1;
             }
@@ -98,7 +98,14 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.I) && oldState.IsKeyUp(Keys.I))
             {
+                DebugConsole.addLine("Ouverture Inventaire");
                 inventaire.Activate();
+            }
+
+            if (newState.IsKeyDown(Keys.C) && oldState.IsKeyUp(Keys.C))
+            {
+                DebugConsole.addLine("Ouverture Crafting");
+                crafting.Activate();
             }
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
@@ -136,8 +143,14 @@ namespace LifeInTheWild
                     }
                 }
             }
-
             oldState = newState;
+            //collision avec une pancarte
+            if (CollisionManager(objets, newPosition) is Pancarte thePancarte)
+            {
+                DebugConsole.addLine(thePancarte.getText());
+            }
+
+            
             base.Update(objets);
         }
 

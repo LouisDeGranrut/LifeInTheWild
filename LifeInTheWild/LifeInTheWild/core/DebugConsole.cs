@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LifeInTheWild
 {
-    public static class DebugConsole
+    public static class DebugConsole//en faire un overlay ? (sauf que ça doit être static...)
     {
         private static int ligne = 0;
         private static List<String> log = new List<String>();

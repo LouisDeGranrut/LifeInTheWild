@@ -21,7 +21,7 @@ namespace LifeInTheWild
             this.speed = .4f;
             this.position = pos;
             this.direction = new Vector2(0, 0);
-    }
+        }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------
         //Collisions avec les objets proche, retourne l'objet avec lequel la creature collisionne
@@ -56,7 +56,6 @@ namespace LifeInTheWild
 
         public virtual void Update(List<Entity> objets)
         {
-
             //Gestion des mouvements
             OldPosition = position;
             if (CollisionManager(objets, newPosition) == null){//si on a pas de collisions

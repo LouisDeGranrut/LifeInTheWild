@@ -32,6 +32,5 @@ namespace LifeInTheWild
         {
             spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
         }
-
     }
 }

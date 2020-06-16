@@ -23,6 +23,7 @@ namespace LifeInTheWild
             this.window = Loader.Images["window"];
             this.game = game;
             this.items = new List<Item>();
+            items.Add(new Item("arbre", 1));
         }
 
         public override void Update()
@@ -34,10 +35,10 @@ namespace LifeInTheWild
         {
             if (isActive)
             {
-                spriteBatch.Draw(window, new Rectangle(0,0, 920/2,680/2), Color.White);
+                spriteBatch.Draw(window, new Rectangle(0,0, 460,680), Color.White);
                 for(int i = 0; i<items.Count; i++)
                 {
-                    spriteBatch.DrawString(font, "-" + items[i].ToString(), new Vector2(50, 70+(15*i)), Color.Red);
+                    spriteBatch.DrawString(font, "-" + items[i].getName() + " x" + items[i].getQuantity(), new Vector2(50, 70+(15*i)), Color.Red);
                 }
                 spriteBatch.DrawString(font, "INVENTAIRE", new Vector2(50, 50), Color.Red);
             }
@@ -45,8 +46,26 @@ namespace LifeInTheWild
 
         public void AddItem(Item i)
         {
-            this.items.Add(i);
-            DebugConsole.addLine(i + " was added to inventory");
+            for (int j = 0; j < items.Count; j++)
+            {
+                if (items[j].getName() == i.getName())
+                {
+                    items[j].addQuantity(1);
+                    DebugConsole.addLine(i + " type already exists");
+                    return;
+                }
+                if (items[j].getName() != i.getName())
+                {
+                    DebugConsole.addLine(i + " was not found");
+                    this.items.Add(i);
+                    return;
+                }
+            }
+        }
+
+        public int Size()
+        {
+            return this.items.Count;
         }
 
     }

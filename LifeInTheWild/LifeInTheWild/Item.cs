@@ -18,6 +18,20 @@ namespace LifeInTheWild
             this.Quantity = quantity;
         }
 
+        public string getName()
+        {
+            return this.Name;
+        }
+
+        public int getQuantity()
+        {
+            return this.Quantity;
+        }
+
+        public void addQuantity(int a)
+        {
+            this.Quantity += a;
+        }
 
     }
 }

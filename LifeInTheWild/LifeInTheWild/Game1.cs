@@ -17,6 +17,7 @@ namespace LifeInTheWild
         Random rnd = new Random();//le générateur de nombres aléatoire
         private SpriteFont font;//la police d'écriture du jeu
         private static Inventaire inventaire;//inventaire du jeu
+        private static Crafting crafting;
         private int tileSize = 16;//la taille des images du jeu (en pixels)
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
@@ -58,6 +59,7 @@ namespace LifeInTheWild
             Loader.LoadAudio(this.Content);
 
             inventaire = new Inventaire(this);
+            crafting = new Crafting(this);
 
             playerHit = Loader.Sounds["hit"];
             playerMow = Loader.Sounds["mow"];
@@ -84,10 +86,10 @@ namespace LifeInTheWild
                 objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 3));
-
+                objets.Add(new Pancarte(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "panneau", 3, "ceci est le texte de la pancarte par defaut"));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "crop", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
-                objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
+                //objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
             }
 
@@ -106,8 +108,10 @@ namespace LifeInTheWild
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.Update(objets, map, inventaire);
+            player.Update(objets, map, inventaire, crafting);
             camera.Follow(player);
+            crafting.Update();
+            inventaire.Update();
 
             for(int i = 0; i<objets.Count;i++)//pour toutes les entites
             {
@@ -136,7 +140,10 @@ namespace LifeInTheWild
             {
                 for (int colonne = 0; colonne <= mapSize-1; colonne++)
                 {
-                    if (player.getPosition().X < colonne*tileSize + 224 && player.getPosition().X + 224 > colonne * tileSize && player.getPosition().Y < ligne * tileSize + 176 && player.getPosition().Y + 176 > ligne * tileSize)
+                    if (player.getPosition().X < colonne * tileSize + 224 &&
+                        player.getPosition().X + 224 > colonne * tileSize &&
+                        player.getPosition().Y < ligne * tileSize + 176 &&
+                        player.getPosition().Y + 176 > ligne * tileSize)
                     {
                         int id = map[ligne, colonne];
                         spriteBatch.Draw(floorTiles[id], new Vector2(colonne * tileSize, ligne * tileSize), Color.White);
@@ -158,7 +165,6 @@ namespace LifeInTheWild
             double posX = Math.Round((player.getPosition().X + (player.getDir().X * 16)) / 16);
             double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * 16)) / 16);
             spriteBatch.Draw(rectTex, new Vector2((int)posX *16,(int)posY*16), Color.Fuchsia);
-
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
@@ -169,9 +175,16 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
-            DebugConsole.Draw(spriteBatch, font, new Vector2(10,140));
+            spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.LightGreen);
+            DebugConsole.Draw(spriteBatch, font, new Vector2(10,145));
             if (inventaire.isActive)
+            {
                 inventaire.Draw(spriteBatch, font);
+            }
+            if (crafting.isActive)
+            {
+                crafting.Draw(spriteBatch, font);
+            }
             spriteBatch.End();
 
             base.Draw(gameTime);

@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Crafting.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Inventaire.cs" />
     <Compile Include="Objects\Arbre.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="core\Loader.cs" />
     <Compile Include="Objects\Door.cs" />
     <Compile Include="core\Overlay.cs" />
+    <Compile Include="Objects\Pancarte.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

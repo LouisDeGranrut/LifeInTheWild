@@ -17,7 +17,7 @@ namespace LifeInTheWild
 
         public override void Destroy(Inventaire inventaire)
         {
-            inventaire.AddItem(new Item("test", 1));
+            inventaire.AddItem(new Item("arbre", 1));
         }
 
     }
