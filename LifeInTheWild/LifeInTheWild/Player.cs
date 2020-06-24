@@ -31,14 +31,13 @@ namespace LifeInTheWild
         public Player(Vector2 pos, int hp, string image, SoundEffect hit, SoundEffect mow, Game game) : base(pos, image, hp)
         {
             this.hp = hp;
+            this.hit = hit;
+            this.mow = mow;
 
             this.down = Loader.Images["playerdown"];
             this.left = Loader.Images["playerleft"];
             this.right = Loader.Images["playerright"];
             this.up = Loader.Images[image];
-
-            this.hit = hit;
-            this.mow = mow;
 
             oldState = Keyboard.GetState();
         }
@@ -83,6 +82,11 @@ namespace LifeInTheWild
                 outil +=1;
             }
 
+            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//TEMPORAIRE
+            {
+                outil -= 1;
+            }
+
             if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape))
             {
                 if (affPancarte.getActive())
@@ -93,17 +97,12 @@ namespace LifeInTheWild
                     crafting.Activate();
             }
 
-            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//TEMPORAIRE
-            {
-                outil -= 1;
-            }
-
             if (newState.IsKeyDown(Keys.E) && oldState.IsKeyUp(Keys.E))
             {
-                //if (CollisionManager(objets, position + dir * 4) != null && CollisionManager(objets, position + dir * 4) is Door)// PIRE CODE EVER
-               // {
-                //    CollisionManager(objets, position + dir * 4).setOpen(false);
-                //}
+                if (CollisionManager(objets, newPosition + dir) is Entity theEntity)
+                {
+                    theEntity.Interact();
+                }
             }
 
             if (newState.IsKeyDown(Keys.I) && oldState.IsKeyUp(Keys.I))
@@ -120,9 +119,9 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
-                if (CollisionManager(objets, position + dir*4) !=null)// PIRE CODE EVER
+                if (CollisionManager(objets, position + dir * 4) != null)// PIRE CODE EVER
                 {
-                    CollisionManager(objets, position + dir*4).Damage(1);// PIRE CODE EVER
+                    CollisionManager(objets, position + dir * 4).Damage(1);// PIRE CODE EVER
                     hit.Play();                    
                 }
                 else//si on collisionne avec rien

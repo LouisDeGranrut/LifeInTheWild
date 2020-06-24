@@ -32,6 +32,10 @@ namespace LifeInTheWild
             return this.hp;
         }
 
+        public virtual void Interact()
+        {
+        }
+
         public virtual void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y + 2), Color.Gray);// potentiels ombres

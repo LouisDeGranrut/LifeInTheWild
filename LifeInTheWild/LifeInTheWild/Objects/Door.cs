@@ -23,9 +23,18 @@ namespace LifeInTheWild
             this.open = true;
         }
 
-        public void setOpen(bool open)
+        public override void Interact()
         {
             this.open = !open;
+            DebugConsole.addLine("ouverture de la porte");
+            if (open)
+            {
+                this.texture = openTex;
+            }
+            else
+            {
+                this.texture = closeTex;
+            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)

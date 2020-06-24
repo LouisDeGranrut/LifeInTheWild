@@ -92,7 +92,7 @@ namespace LifeInTheWild
                 "de planter des graines pour\npouvoir subvenir a vos besoins." +
                 " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
-                //objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
+                objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "wallFace", 10));
             }
@@ -109,7 +109,6 @@ namespace LifeInTheWild
 
         protected override void Update(GameTime gameTime)
         {
-
             player.Update(objets, map, inventaire, crafting, affPancarte);
             camera.Follow(player);
             crafting.Update();
