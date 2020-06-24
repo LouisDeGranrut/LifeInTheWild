@@ -15,9 +15,10 @@ namespace LifeInTheWild
             this.texture = Loader.Images[image];
         }
 
-        public override void Destroy(Inventaire inventaire)
+        public override void Destroy(Inventaire inventaire, List<Entity> objets, Entity entity)
         {
             inventaire.AddItem(new Item("arbre", 1));
+            base.Destroy(inventaire, objets, entity);
         }
 
     }

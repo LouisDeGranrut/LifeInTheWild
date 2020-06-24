@@ -4,5 +4,7 @@ faire en sorte que la console ne dépasse pas de l'écran
 diminuer la charge sur la ram (trouver l'origine de la consommation)
 utiliser le tileset
 trouver un clavier avec un numpad pour tester le crafting
-pouvoir interagir avec une entité (porte mur) et modifier son sprite
+que l'interaction avec la carte se fasse par E
+boire par le puit
+diminuer la faim et la soif a tout instant
 game states

@@ -23,10 +23,9 @@ namespace LifeInTheWild
             this.open = true;
         }
 
-        public override void Interact()
+        public override void Interact(Player player, Inventaire inventaire, List<Entity> objets)
         {
             this.open = !open;
-            DebugConsole.addLine("ouverture de la porte");
             if (open)
             {
                 this.texture = openTex;
@@ -35,11 +34,6 @@ namespace LifeInTheWild
             {
                 this.texture = closeTex;
             }
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
         }
     }
 }

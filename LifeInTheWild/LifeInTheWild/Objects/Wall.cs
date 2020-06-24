@@ -14,10 +14,5 @@ namespace LifeInTheWild
         {
             this.texture = Loader.Images[image];
         }
-
-        public override void Destroy(Inventaire inventaire)
-        {
-        }
-
     }
 }

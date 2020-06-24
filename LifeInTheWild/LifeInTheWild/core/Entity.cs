@@ -32,7 +32,7 @@ namespace LifeInTheWild
             return this.hp;
         }
 
-        public virtual void Interact()
+        public virtual void Interact(Player player, Inventaire inventaire, List<Entity> objets)
         {
         }
 
@@ -49,7 +49,8 @@ namespace LifeInTheWild
             DebugConsole.addLine("HP: " + this.hp);
         }
 
-        public virtual void Destroy(Inventaire inventaire) {
+        public virtual void Destroy(Inventaire inventaire, List<Entity> objets,Entity entity) {
+            objets.Remove(entity);
         }
 
         public virtual void Update()

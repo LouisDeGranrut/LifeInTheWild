@@ -85,16 +85,12 @@ namespace LifeInTheWild
                 objets.Add(new Rock(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "rocks", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "tree", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "sapin", 3));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "anvil", 3));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "well", 3));
+                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "crop", 3));
                 objets.Add(new Pancarte(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
                 "atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
                 "de planter des graines pour\npouvoir subvenir a vos besoins." +
                 " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
                 objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "wallFace", 10));
             }
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)
@@ -120,10 +116,9 @@ namespace LifeInTheWild
                 //objets[i].Update();//la mettre à jour
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
-                    objets[i].Destroy(inventaire);
+                    objets[i].Destroy(inventaire, objets, objets[i]);
                     Loader.Sounds["destroy"].Play();
                     DebugConsole.addLine("Destroying: " + objets[i]);
-                    objets.Remove(objets[i]);//la retirer de la liste
                 }
             }
             base.Update(gameTime);
@@ -140,9 +135,9 @@ namespace LifeInTheWild
             {
                 for (int colonne = 0; colonne <= mapSize - 1; colonne++)
                 {
-                    if (player.getPosition().X < colonne * tileSize + 224 &&
+                    if (player.getPosition().X < colonne * tileSize + 1224 &&
                         player.getPosition().X + 224 > colonne * tileSize &&
-                        player.getPosition().Y < ligne * tileSize + 176 &&
+                        player.getPosition().Y < ligne * tileSize + 1176 &&
                         player.getPosition().Y + 176 > ligne * tileSize)
                     {
                         int id = map[ligne, colonne];
@@ -153,7 +148,7 @@ namespace LifeInTheWild
 
             foreach (Entity el in objets)//pour tous les objets de la map ("""optimisation pas indispensable""")
             {
-                if (player.getPosition().X < el.getPosition().X + 224 && player.getPosition().X + 224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
+                if (player.getPosition().X < el.getPosition().X + 1224 && player.getPosition().X + 1224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
                 {
                     el.Draw(spriteBatch);
                     //spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
@@ -170,10 +165,12 @@ namespace LifeInTheWild
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
             spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
-            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.LightGreen);
+            spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.LightGreen);
+            spriteBatch.DrawString(font, "Soif: " + player.getThirst().ToString(), new Vector2(10, 40), Color.LightGreen);
+            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 55), Color.LightGreen);
             spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
-            spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
+            //spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
             spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.LightGreen);
             DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));

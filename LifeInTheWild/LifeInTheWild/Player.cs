@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,8 @@ namespace LifeInTheWild
     {
         //Gameplay-----------------------------------------
         private int outil;//l'outils équipé
+        private int hunger;
+        private int thirst;
         //Textures-----------------------------------------
         private Texture2D down;
         private Texture2D left;
@@ -33,6 +36,8 @@ namespace LifeInTheWild
             this.hp = hp;
             this.hit = hit;
             this.mow = mow;
+            this.hunger = 100;
+            this.thirst = 100;
 
             this.down = Loader.Images["playerdown"];
             this.left = Loader.Images["playerleft"];
@@ -101,7 +106,7 @@ namespace LifeInTheWild
             {
                 if (CollisionManager(objets, newPosition + dir) is Entity theEntity)
                 {
-                    theEntity.Interact();
+                    theEntity.Interact(this, inventaire, objets);
                 }
             }
 
@@ -180,6 +185,22 @@ namespace LifeInTheWild
         public Vector2 getDir()
         {
             return this.dir;
+        }
+
+        public int getHunger()
+        {
+            return this.hunger;
+        }
+
+        public void addHunger(int a)
+        {
+            this.hunger += a;
+            DebugConsole.addLine("mange");
+        }
+
+        public int getThirst()
+        {
+            return this.thirst;
         }
 
         public Vector2 getDirection()
