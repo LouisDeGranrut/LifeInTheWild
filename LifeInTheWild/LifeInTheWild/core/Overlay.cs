@@ -29,6 +29,9 @@ namespace LifeInTheWild
         public virtual void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
         }
-
+        public virtual bool getActive()
+        {
+            return this.isActive;
+        }
     }
 }

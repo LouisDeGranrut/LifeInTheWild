@@ -24,7 +24,7 @@ namespace LifeInTheWild
         {
             if (isActive)
             {
-                if (Keyboard.GetState().IsKeyDown(Keys.NumPad1)){
+                if (Keyboard.GetState().IsKeyDown(Keys.Space)){
                     DebugConsole.addLine("Tried to craft something (1)");
                     //il faut maintenant définir l'outil à attribuer au joueur puis quand il placera l'objet, lui déduire les ressources
                     isActive = false;

@@ -26,31 +26,44 @@ namespace LifeInTheWild
         public override void Update(List<Entity> objets)
         {
             Random rnd = new Random();
-            int dir = rnd.Next(0,4);
+
+            int targetX = rnd.Next(-128, 128);
+            int targetY = rnd.Next(-128, 128);
+
+            float angle = (float)Math.Atan2(targetY-position.Y, targetX - position.X);
+            this.newPosition.X += (float)(Math.Cos(angle));
+            this.newPosition.Y += (float)(Math.Sin(angle));
+
+            //if(this.position == new Vector2(targetX, targetY))
+            //{
+            //    DebugConsole.addLine("Eagle has landed");
+            //}
+
+            /*int dir = rnd.Next(0,4);
 
             switch (dir)
             {
                 case 0:
-                    this.direction.X = 1;
+                    this.newPosition.X += 1;
                     this.texture = left;
                     break;
                 case 1:
-                    this.direction.X = -1;
+                    this.newPosition.X -= 1;
                     this.texture = right;
                     break;
                 case 2:
-                    this.direction.Y = 1;
+                    this.newPosition.Y += 1;
                     this.texture = down;
                     break;
                 case 3:
-                    this.direction.Y = -1;
+                    this.newPosition.Y -= 1;
                     this.texture = up;
                     break;
                 case 4:
                     this.direction.X = 0;
                     this.direction.Y = 0;
                     break;
-            }
+            }*/
 
             base.Update(objets);
         }

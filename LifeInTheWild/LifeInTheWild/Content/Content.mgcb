@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin anvil.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:anvil.png
+
 #begin basic.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
@@ -242,6 +254,18 @@
 /processorParam:Quality=Best
 /build:mow.wav
 
+#begin pancarteWindow.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:pancarteWindow.png
+
 #begin panneau.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -373,6 +397,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:wallFace.png
+
+#begin well.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:well.png
 
 #begin window.png
 /importer:TextureImporter

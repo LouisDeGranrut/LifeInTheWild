@@ -2,6 +2,7 @@
 
 faire en sorte que la console ne dépasse pas de l'écran
 diminuer la charge sur la ram (trouver l'origine de la consommation)
-régler le bug d'ajout  d'item dans l'inventaire
+utiliser le tileset
 trouver un clavier avec un numpad pour tester le crafting
-améliorer les panneaux en leur donnant leur propre overlay plutot que de print leur texte dans la console
+pouvoir interagir avec une entité (porte mur) et modifier son sprite
+game states

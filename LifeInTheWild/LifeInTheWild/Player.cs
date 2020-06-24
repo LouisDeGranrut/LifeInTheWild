@@ -43,7 +43,7 @@ namespace LifeInTheWild
             oldState = Keyboard.GetState();
         }
 
-        public virtual void Update(List<Entity> objets, int[,] map, Inventaire inventaire, Crafting crafting)
+        public virtual void Update(List<Entity> objets, int[,] map, Inventaire inventaire, Crafting crafting, AffichagePancarte affPancarte)
         {
             KeyboardState newState = Keyboard.GetState();  // get the newest state
             Vector2 newPosition = position;
@@ -81,6 +81,16 @@ namespace LifeInTheWild
             if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//TEMPORAIRE
             {
                 outil +=1;
+            }
+
+            if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape))
+            {
+                if (affPancarte.getActive())
+                    affPancarte.Activate();
+                if (inventaire.getActive())
+                    inventaire.Activate();
+                if (crafting.getActive())
+                    crafting.Activate();
             }
 
             if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//TEMPORAIRE
@@ -126,6 +136,7 @@ namespace LifeInTheWild
                             Entity a = new Rock(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
+                            outil = 0;
                             break;
                         case 2://mettre du parquet
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
@@ -139,17 +150,17 @@ namespace LifeInTheWild
                             a = new Rock(new Vector2((float)posX * 16, (float)posY * 16), "wallFace", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
+                            outil = 0;
                             break;
                     }
                 }
             }
             oldState = newState;
             //collision avec une pancarte
-            if (CollisionManager(objets, newPosition) is Pancarte thePancarte)
+            if (CollisionManager(objets, newPosition+dir) is Pancarte thePancarte && affPancarte.getActive() == false)
             {
-                DebugConsole.addLine(thePancarte.getText());
+                affPancarte.Activate(thePancarte.getText());
             }
-
             
             base.Update(objets);
         }

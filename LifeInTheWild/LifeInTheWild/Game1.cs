@@ -1,11 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace LifeInTheWild
 {
@@ -18,6 +15,7 @@ namespace LifeInTheWild
         private SpriteFont font;//la police d'écriture du jeu
         private static Inventaire inventaire;//inventaire du jeu
         private static Crafting crafting;
+        private static AffichagePancarte affPancarte;
         private int tileSize = 16;//la taille des images du jeu (en pixels)
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
@@ -60,6 +58,7 @@ namespace LifeInTheWild
 
             inventaire = new Inventaire(this);
             crafting = new Crafting(this);
+            affPancarte = new AffichagePancarte(this);
 
             playerHit = Loader.Sounds["hit"];
             playerMow = Loader.Sounds["mow"];
@@ -82,38 +81,42 @@ namespace LifeInTheWild
             //fais apparaitre 75 arbres, buissons, cailloux...
             for (int i = 0; i <= 75; i++)
             {
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "bush", 3));
-                objets.Add(new Rock(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "rocks", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "tree", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "sapin", 3));
-                objets.Add(new Pancarte(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "panneau", 3, "ceci est le texte de la pancarte par defaut"));
-                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "crop", 10));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "bush", 3));
+                objets.Add(new Rock(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "rocks", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "tree", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "sapin", 3));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "anvil", 3));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "well", 3));
+                objets.Add(new Pancarte(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
+                "atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
+                "de planter des graines pour\npouvoir subvenir a vos besoins." +
+                " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "campfire", 10));
                 //objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
                 //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "chest", 10));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "wallFace", 10));
             }
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)
-            for (int i = 0; i <= mapSize-1; i++)
+            for (int i = 0; i <= mapSize - 1; i++)
             {
-                for (int j = 0; j <= mapSize-1; j++)
+                for (int j = 0; j <= mapSize - 1; j++)
                 {
-                    map[i,j] = rnd.Next(0, 4);
+                    map[i, j] = rnd.Next(0, 4);
                 }
             }
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
 
-            player.Update(objets, map, inventaire, crafting);
+            player.Update(objets, map, inventaire, crafting, affPancarte);
             camera.Follow(player);
             crafting.Update();
             inventaire.Update();
+            chicken.Update(objets);
 
-            for(int i = 0; i<objets.Count;i++)//pour toutes les entites
+            for (int i = 0; i < objets.Count; i++)//pour toutes les entites
             {
                 //objets[i].Update();//la mettre à jour
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
@@ -124,8 +127,6 @@ namespace LifeInTheWild
                     objets.Remove(objets[i]);//la retirer de la liste
                 }
             }
-
-            chicken.Update(objets);//met a jour la poule
             base.Update(gameTime);
         }
 
@@ -136,9 +137,9 @@ namespace LifeInTheWild
 
             //Affichage du terrain------------------------------------------------------------------------------------------------
 
-            for (int ligne = 0; ligne <= mapSize-1; ligne++)
+            for (int ligne = 0; ligne <= mapSize - 1; ligne++)
             {
-                for (int colonne = 0; colonne <= mapSize-1; colonne++)
+                for (int colonne = 0; colonne <= mapSize - 1; colonne++)
                 {
                     if (player.getPosition().X < colonne * tileSize + 224 &&
                         player.getPosition().X + 224 > colonne * tileSize &&
@@ -164,27 +165,25 @@ namespace LifeInTheWild
             chicken.Draw(spriteBatch);
             double posX = Math.Round((player.getPosition().X + (player.getDir().X * 16)) / 16);
             double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * 16)) / 16);
-            spriteBatch.Draw(rectTex, new Vector2((int)posX *16,(int)posY*16), Color.Fuchsia);
+            spriteBatch.Draw(rectTex, new Vector2((int)posX * 16, (int)posY * 16), Color.Fuchsia);
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            spriteBatch.DrawString(font, "HP: "+player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
+            spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 25), Color.LightGreen);
             spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
             spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
             spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.LightGreen);
-            DebugConsole.Draw(spriteBatch, font, new Vector2(10,145));
+            DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
             if (inventaire.isActive)
-            {
                 inventaire.Draw(spriteBatch, font);
-            }
+            if (affPancarte.isActive)
+                affPancarte.Draw(spriteBatch, font);
             if (crafting.isActive)
-            {
                 crafting.Draw(spriteBatch, font);
-            }
             spriteBatch.End();
 
             base.Draw(gameTime);

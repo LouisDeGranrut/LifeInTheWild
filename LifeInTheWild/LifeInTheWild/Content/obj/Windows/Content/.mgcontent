@@ -4,6 +4,7 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/anvil.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/basic.spritefont</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bush.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/campfire.png</File>
@@ -25,6 +26,7 @@
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/grass3.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/hit.wav</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/mow.wav</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/pancarteWindow.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/panneau.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerdown.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerleft.png</File>
@@ -36,6 +38,7 @@
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/sapin.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/tree.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/wallFace.png</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/well.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/window.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/woodTile.png</File>
   </SourceFiles>
@@ -49,7 +52,10 @@
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File>chicken_left.png</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

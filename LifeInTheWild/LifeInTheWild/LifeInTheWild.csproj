@@ -41,8 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AffichagePancarte.cs" />
     <Compile Include="Crafting.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="core\Item.cs" />
     <Compile Include="Inventaire.cs" />
     <Compile Include="Objects\Arbre.cs" />
     <Compile Include="core\Camera.cs" />

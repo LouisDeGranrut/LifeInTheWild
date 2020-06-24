@@ -22,6 +22,5 @@ namespace LifeInTheWild
         {
             return this.text;
         }
-
     }
 }

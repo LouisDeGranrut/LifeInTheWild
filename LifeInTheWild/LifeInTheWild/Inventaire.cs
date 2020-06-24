@@ -10,11 +10,9 @@ namespace LifeInTheWild
 {
     public class Inventaire : Overlay
     {
-
         private Texture2D slot;
         private Texture2D window;
         private Game game;
-
         private List<Item> items;
 
         public Inventaire(Game game) : base(game)
@@ -23,7 +21,7 @@ namespace LifeInTheWild
             this.window = Loader.Images["window"];
             this.game = game;
             this.items = new List<Item>();
-            items.Add(new Item("arbre", 1));
+            //items.Add(new Item("arbre", 1));
         }
 
         public override void Update()
@@ -46,19 +44,30 @@ namespace LifeInTheWild
 
         public void AddItem(Item i)
         {
-            for (int j = 0; j < items.Count; j++)
+            if(items.Count <= 0)//si l'inventaire est vide
             {
-                if (items[j].getName() == i.getName())
+                DebugConsole.addLine("Inventaire vide, on ajoute l'objet");
+                this.items.Add(i);//on ajoute l'objet
+            }
+            else//si l'inventaire n'est pas vide
+            {
+                DebugConsole.addLine("Inventaire non vide");
+                bool objetExiste = false;
+
+                for (int j = 0; j < items.Count; j++)//on le parcourt l'erreur vient du fait que ça s'execute dés le premier objet, si le premier objet est un arbre, alors forcement, les cailloux qu'on ramasse ne seront pas du meme type que l'arbre qu'on a en premier dans l'inventaire !
                 {
-                    items[j].addQuantity(1);
-                    DebugConsole.addLine(i + " type already exists");
-                    return;
-                }
-                if (items[j].getName() != i.getName())
-                {
-                    DebugConsole.addLine(i + " was not found");
-                    this.items.Add(i);
-                    return;
+                    if (items[j].getName() == i.getName())
+                    {
+                        DebugConsole.addLine("Objet du meme type trouve");
+                        items[j].addQuantity(1);
+                        objetExiste = true;
+                    }
+
+                    if(j == items.Count-1 && objetExiste == false)
+                    {
+                        DebugConsole.addLine("Objet du meme type non trouve");
+                        this.items.Add(i);
+                    }
                 }
             }
         }
