@@ -16,8 +16,8 @@ namespace LifeInTheWild
     {
         //Gameplay-----------------------------------------
         private int outil;//l'outils équipé
-        private int hunger;
-        private int thirst;
+        private float hunger;
+        private float thirst;
         //Textures-----------------------------------------
         private Texture2D down;
         private Texture2D left;
@@ -52,6 +52,8 @@ namespace LifeInTheWild
             KeyboardState newState = Keyboard.GetState();  // get the newest state
             Vector2 newPosition = position;
 
+            hunger -= .0001f;
+            thirst -= .0001f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;
@@ -187,7 +189,7 @@ namespace LifeInTheWild
             return this.dir;
         }
 
-        public int getHunger()
+        public float getHunger()
         {
             return this.hunger;
         }
@@ -195,10 +197,16 @@ namespace LifeInTheWild
         public void addHunger(int a)
         {
             this.hunger += a;
-            DebugConsole.addLine("mange");
+            DebugConsole.addLine("manger");
         }
 
-        public int getThirst()
+        public void addThirst(int a)
+        {
+            this.thirst += a;
+            DebugConsole.addLine("boire");
+        }
+
+        public float getThirst()
         {
             return this.thirst;
         }

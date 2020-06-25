@@ -56,6 +56,7 @@
     <Compile Include="Objects\Door.cs" />
     <Compile Include="core\Overlay.cs" />
     <Compile Include="Objects\Pancarte.cs" />
+    <Compile Include="Objects\Well.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

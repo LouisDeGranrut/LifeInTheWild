@@ -14,7 +14,7 @@ namespace LifeInTheWild
 
         public void Follow(Player player)
         {
-            Transform = Matrix.CreateTranslation(-(player.getPosition().X - (8))*1f, -(player.getPosition().Y - (8))*1f, 0) * Matrix.CreateTranslation(Game1.screenWidth / 4,  Game1.screenHeight / 4, 0);
+            Transform = Matrix.CreateTranslation(-(player.getPosition().X - (8))*.9f, -(player.getPosition().Y - (8))* .9f, 0) * Matrix.CreateTranslation(Game1.screenWidth / 4,  Game1.screenHeight / 4, 0);
         }
     }
 }
