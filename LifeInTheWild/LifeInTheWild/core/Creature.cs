@@ -21,6 +21,7 @@ namespace LifeInTheWild
             this.speed = .4f;
             this.position = pos;
             this.direction = new Vector2(0, 0);
+            newPosition = pos;
         }
 
         //-----------------------------------------------------------------------------------------------------------------------------------------------------

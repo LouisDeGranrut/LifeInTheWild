@@ -43,8 +43,9 @@ namespace LifeInTheWild
         {
             if (isActive)
             {
+                Color brun = new Color(68, 36, 52);
                 spriteBatch.Draw(window, new Rectangle(230, 0, 460, 680), Color.White);
-                spriteBatch.DrawString(font, this.text, new Vector2(254, 50), Color.Red);
+                spriteBatch.DrawString(font, this.text, new Vector2(254, 50), brun);
             }
         }
     }

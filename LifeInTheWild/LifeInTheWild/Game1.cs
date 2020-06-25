@@ -74,9 +74,9 @@ namespace LifeInTheWild
             DebugConsole.addLine("   -Debug Console-:");
             rectTex = Loader.Images["rect"];
 
-            player = new Player(new Vector2(512, 512), 10, "playerup", playerHit, playerMow, this);
+            player = new Player(new Vector2(256, 256), 10, "playerup", playerHit, playerMow, this);
             camera = new Camera();
-            chicken = new Chicken(new Vector2(512 + 16, 512 + 16), "chicken_left", 10);
+            chicken = new Chicken(new Vector2(256 + 16, 256 + 16), "chicken_left", 10);
 
             //fais apparaitre 75 arbres, buissons, cailloux...
             for (int i = 0; i <= 75; i++)
@@ -149,11 +149,11 @@ namespace LifeInTheWild
 
             foreach (Entity el in objets)//pour tous les objets de la map ("""optimisation pas indispensable""")
             {
-                if (player.getPosition().X < el.getPosition().X + 1224 && player.getPosition().X + 1224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
-                {
+                //if (player.getPosition().X < el.getPosition().X + 1224 && player.getPosition().X + 1224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
+                //{
                     el.Draw(spriteBatch);
-                    //spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
-                }
+                    spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
+                //}
             }
 
             player.Draw(spriteBatch);
@@ -165,15 +165,15 @@ namespace LifeInTheWild
 
             //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.LightGreen);
-            spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.LightGreen);
-            spriteBatch.DrawString(font, "Soif: " + player.getThirst().ToString(), new Vector2(10, 40), Color.LightGreen);
-            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 55), Color.LightGreen);
-            spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.LightGreen);
-            spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.LightGreen);
-            //spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.LightGreen);
-            spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.LightGreen);
-            spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.LightGreen);
+            spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.Red);
+            spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.Red);
+            spriteBatch.DrawString(font, "Soif: " + player.getThirst().ToString(), new Vector2(10, 40), Color.Red);
+            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 55), Color.Red);
+            spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.Red);
+            spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
+            //spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.Red);
+            spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.Red);
+            spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.Red);
             DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
             if (inventaire.isActive)
                 inventaire.Draw(spriteBatch, font);

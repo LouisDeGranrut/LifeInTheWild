@@ -139,7 +139,7 @@ namespace LifeInTheWild
                         case 1://planter des graines
                             double posX = Math.Round((this.position.X + (this.dir.X*16))/16);
                             double posY = Math.Round((this.position.Y + (this.dir.Y*16))/16);
-                            Entity a = new Rock(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
+                            Entity a = new Vegetable(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
                             outil = 0;
