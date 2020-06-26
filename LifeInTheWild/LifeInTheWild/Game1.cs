@@ -28,6 +28,7 @@ namespace LifeInTheWild
         private Chicken chicken;
 
         private Texture2D rectTex;
+        private Texture2D heart;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -73,6 +74,7 @@ namespace LifeInTheWild
 
             DebugConsole.addLine("   -Debug Console-:");
             rectTex = Loader.Images["rect"];
+            heart = Loader.Images["heart"];
 
             player = new Player(new Vector2(256, 256), 100, "playerup", playerHit, playerMow, this);
             camera = new Camera();
@@ -174,7 +176,12 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.Red);
             spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.Red);
 
-            for(int i = 0; i<= player.getHunger() / 10; i++)
+            for (int i = 0; i <= player.getHP() / 10; i++)
+            {
+                spriteBatch.Draw(heart, new Vector2((18 * i) + 150, 1), Color.Fuchsia);
+            }
+
+            for (int i = 0; i<= player.getHunger() / 10; i++)
             {
                 spriteBatch.Draw(rectTex, new Vector2((18*i) + 150,25), Color.Fuchsia);
             }

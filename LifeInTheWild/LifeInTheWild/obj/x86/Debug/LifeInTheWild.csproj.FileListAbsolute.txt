@@ -57,3 +57,4 @@ C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\pancarteWindow.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\anvil.xnb
 C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\well.xnb
+C:\Users\Lou\source\repos\LifeInTheWild\LifeInTheWild\LifeInTheWild\bin\Windows\x86\Debug\Content\heart.xnb
