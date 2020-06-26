@@ -49,7 +49,7 @@ namespace LifeInTheWild
             base.Initialize();
         }
 
-        protected override void LoadContent()
+        protected override void LoadContent()//----------------------------------------------------------------------------------------------------------------
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("basic");
@@ -74,7 +74,7 @@ namespace LifeInTheWild
             DebugConsole.addLine("   -Debug Console-:");
             rectTex = Loader.Images["rect"];
 
-            player = new Player(new Vector2(256, 256), 10, "playerup", playerHit, playerMow, this);
+            player = new Player(new Vector2(256, 256), 100, "playerup", playerHit, playerMow, this);
             camera = new Camera();
             chicken = new Chicken(new Vector2(256 + 16, 256 + 16), "chicken_left", 10);
 
@@ -87,14 +87,14 @@ namespace LifeInTheWild
                 objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "sapin", 3));
                 objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "crop", 3));
                 objets.Add(new Well(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "well", 3));
-                objets.Add(new Pancarte(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
-                "atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
-                "de planter des graines pour\npouvoir subvenir a vos besoins." +
-                " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
-                objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
+                //objets.Add(new Pancarte(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
+                //"atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
+                //"de planter des graines pour\npouvoir subvenir a vos besoins." +
+                //" Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
+                //objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
             }
 
-            //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)
+            //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)//---------------------------------------------------------------------------------
             for (int i = 0; i <= mapSize - 1; i++)
             {
                 for (int j = 0; j <= mapSize - 1; j++)
@@ -104,7 +104,7 @@ namespace LifeInTheWild
             }
         }
 
-        protected override void Update(GameTime gameTime)
+        protected override void Update(GameTime gameTime)//----------------------------------------------------------------------------------------------------
         {
             player.Update(objets, map, inventaire, crafting, affPancarte);
             camera.Follow(player);
@@ -119,7 +119,7 @@ namespace LifeInTheWild
                 {
                     objets[i].Destroy(inventaire, objets, objets[i]);
                     Loader.Sounds["destroy"].Play();
-                    DebugConsole.addLine("Destroying: " + objets[i]);
+                    //DebugConsole.addLine("Destroying: " + objets[i]);
                 }
             }
             base.Update(gameTime);
@@ -130,7 +130,7 @@ namespace LifeInTheWild
             GraphicsDevice.Clear(Color.Black);//Couleur d'arrière plan
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, camera.Transform * Matrix.CreateScale(2f));
 
-            //Affichage du terrain------------------------------------------------------------------------------------------------
+            //Affichage du terrain-----------------------------------------------------------------------------------------------------------------------------
 
             for (int ligne = 0; ligne <= mapSize - 1; ligne++)
             {
@@ -147,12 +147,12 @@ namespace LifeInTheWild
                 }
             }
 
-            foreach (Entity el in objets)//pour tous les objets de la map ("""optimisation pas indispensable""")
+            foreach (Entity el in objets)//pour tous les objets de la map--------------------------------------------------------------------------------------
             {
                 //if (player.getPosition().X < el.getPosition().X + 1224 && player.getPosition().X + 1224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
                 //{
                     el.Draw(spriteBatch);
-                    spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
+                    //spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
                 //}
             }
 
@@ -163,7 +163,7 @@ namespace LifeInTheWild
             spriteBatch.Draw(rectTex, new Vector2((int)posX * 16, (int)posY * 16), Color.Fuchsia);
             spriteBatch.End();
 
-            //nouvelle spritebatch pour l'interface-----------------------------------------------------------------------------------------------
+            //nouvelle spritebatch pour l'interface------------------------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
             spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.Red);
             spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.Red);
@@ -171,9 +171,19 @@ namespace LifeInTheWild
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 55), Color.Red);
             spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.Red);
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
-            //spriteBatch.DrawString(font, "Player Dir: " + player.getDir().X + " " + player.getDir().Y, new Vector2(10, 100), Color.Red);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.Red);
             spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.Red);
+
+            for(int i = 0; i<= player.getHunger() / 10; i++)
+            {
+                spriteBatch.Draw(rectTex, new Vector2((18*i) + 150,25), Color.Fuchsia);
+            }
+
+            for (int i = 0; i <= player.getThirst() / 10; i++)
+            {
+                spriteBatch.Draw(rectTex, new Vector2((18 * i) + 150, 40), Color.Fuchsia);
+            }
+
             DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
             if (inventaire.isActive)
                 inventaire.Draw(spriteBatch, font);

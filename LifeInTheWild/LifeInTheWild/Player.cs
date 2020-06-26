@@ -52,8 +52,8 @@ namespace LifeInTheWild
             KeyboardState newState = Keyboard.GetState();  // get the newest state
             Vector2 newPosition = position;
 
-            hunger -= .0001f;
-            thirst -= .0001f;
+            hunger -= .05f;//.0005f;
+            thirst -= .05f;//.0005f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;
@@ -140,6 +140,7 @@ namespace LifeInTheWild
                             double posX = Math.Round((this.position.X + (this.dir.X*16))/16);
                             double posY = Math.Round((this.position.Y + (this.dir.Y*16))/16);
                             Entity a = new Vegetable(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
+                            //retirer une graine de l'inventaire
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
                             outil = 0;
@@ -153,7 +154,15 @@ namespace LifeInTheWild
                         case 4:
                             posX = Math.Round((this.position.X + (this.dir.X * 16)) / 16);
                             posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
-                            a = new Rock(new Vector2((float)posX * 16, (float)posY * 16), "wallFace", 2);
+                            a = new Wall(new Vector2((float)posX * 16, (float)posY * 16), "wallFace","flatrock", 2);
+                            objets.Add(a);
+                            DebugConsole.addLine("Spawning: " + a);
+                            outil = 0;
+                            break;
+                        case 5:
+                            posX = Math.Round((this.position.X + (this.dir.X * 16)) / 16);
+                            posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
+                            a = new Door(new Vector2((float)posX * 16, (float)posY * 16), "door", "door_open", 2);
                             objets.Add(a);
                             DebugConsole.addLine("Spawning: " + a);
                             outil = 0;

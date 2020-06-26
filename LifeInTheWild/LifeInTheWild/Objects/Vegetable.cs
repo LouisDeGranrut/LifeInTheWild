@@ -21,5 +21,11 @@ namespace LifeInTheWild
             this.Destroy(inventaire, objets, this);
             base.Interact(player, inventaire, objets);
         }
+
+        public override void Destroy(Inventaire inventaire, List<Entity> objets, Entity entity)
+        {
+            inventaire.AddItem(new Item("graine", 1));
+            base.Destroy(inventaire, objets, entity);
+        }
     }
 }
