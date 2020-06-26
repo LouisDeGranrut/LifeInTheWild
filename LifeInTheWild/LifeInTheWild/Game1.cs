@@ -29,6 +29,7 @@ namespace LifeInTheWild
 
         private Texture2D rectTex;
         private Texture2D heart;
+        private Texture2D water;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -75,6 +76,7 @@ namespace LifeInTheWild
             DebugConsole.addLine("   -Debug Console-:");
             rectTex = Loader.Images["rect"];
             heart = Loader.Images["heart"];
+            water = Loader.Images["water"];
 
             player = new Player(new Vector2(256, 256), 100, "playerup", playerHit, playerMow, this);
             camera = new Camera();
@@ -178,7 +180,7 @@ namespace LifeInTheWild
 
             for (int i = 0; i <= player.getHP() / 10; i++)
             {
-                spriteBatch.Draw(heart, new Vector2((18 * i) + 150, 1), Color.Fuchsia);
+                spriteBatch.Draw(heart, new Vector2((18 * i) + 150, 0), Color.Fuchsia);
             }
 
             for (int i = 0; i<= player.getHunger() / 10; i++)
@@ -188,7 +190,7 @@ namespace LifeInTheWild
 
             for (int i = 0; i <= player.getThirst() / 10; i++)
             {
-                spriteBatch.Draw(rectTex, new Vector2((18 * i) + 150, 40), Color.Fuchsia);
+                spriteBatch.Draw(water, new Vector2((18 * i) + 150, 50), Color.Fuchsia);
             }
 
             DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
