@@ -74,7 +74,6 @@ namespace LifeInTheWild
                 "atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
                 "de planter des graines pour\npouvoir subvenir a vos besoins." +
                 " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
-                objets.Add(new Door(new Vector2(rnd.Next(50) * tileSize, rnd.Next(50) * tileSize), "door", "door_open", 10));
             }
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)//---------------------------------------------------------------------------------
@@ -97,7 +96,6 @@ namespace LifeInTheWild
 
             for (int i = 0; i < objets.Count; i++)//pour toutes les entites
             {
-                //objets[i].Update();//la mettre à jour
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
                     objets[i].Destroy(inventaire, objets, objets[i]);
@@ -147,9 +145,9 @@ namespace LifeInTheWild
 
             //nouvelle spritebatch pour l'interface------------------------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.Red);
-            spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.Red);
-            spriteBatch.DrawString(font, "Soif: " + player.getThirst().ToString(), new Vector2(10, 40), Color.Red);
+            //spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.Red);
+            //spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.Red);
+            //spriteBatch.DrawString(font, "Soif: " + player.getThirst().ToString(), new Vector2(10, 40), Color.Red);
             spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 55), Color.Red);
             spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.Red);
             spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
@@ -158,17 +156,17 @@ namespace LifeInTheWild
 
             for (int i = 0; i <= player.getHP() / 10; i++)
             {
-                spriteBatch.Draw(heart, new Vector2((18 * i) + 150, 0), Color.Fuchsia);
+                spriteBatch.Draw(heart, new Vector2((18 * i) + 10, 0), Color.Fuchsia);
             }
 
             for (int i = 0; i <= player.getHunger() / 10; i++)
             {
-                spriteBatch.Draw(rectTex, new Vector2((18 * i) + 150, 25), Color.Fuchsia);
+                spriteBatch.Draw(rectTex, new Vector2((18 * i) + 10, 25), Color.Fuchsia);
             }
 
             for (int i = 0; i <= player.getThirst() / 10; i++)
             {
-                spriteBatch.Draw(water, new Vector2((18 * i) + 150, 50), Color.Fuchsia);
+                spriteBatch.Draw(water, new Vector2((18 * i) + 10, 50), Color.Fuchsia);
             }
 
             DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
@@ -179,8 +177,6 @@ namespace LifeInTheWild
             if (crafting.isActive)
                 crafting.Draw(spriteBatch, font);
             spriteBatch.End();
-
         }
-
     }
 }
