@@ -1,11 +1,7 @@
 ﻿toDo:
 
 faire en sorte que la console ne dépasse pas de l'écran
-diminuer la charge sur la ram (trouver l'origine de la consommation)
 utiliser le tileset
 trouver un clavier avec un numpad pour tester le crafting
 que l'interaction avec la pancarte se fasse par E
-faire des power point slides
-condition de mort
-game states
 planter des choses

@@ -13,7 +13,7 @@ namespace LifeInTheWild
 
         protected Vector2 position;
         protected Texture2D texture;
-        protected int hp;
+        protected float hp;
 
         public Entity(Vector2 pos, string image, int hp)
         {
@@ -27,7 +27,7 @@ namespace LifeInTheWild
             return this.position;
         }
 
-        public int getHP()
+        public float getHP()
         {
             return this.hp;
         }
@@ -38,7 +38,7 @@ namespace LifeInTheWild
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y + 2), Color.Gray);// potentiels ombres
+            //spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y + 2), Color.Gray);// potentielles ombres
             spriteBatch.Draw(this.texture, this.position, Color.White);
         }
 

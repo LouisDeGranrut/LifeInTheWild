@@ -11,24 +11,25 @@ namespace LifeInTheWild
 {
     class GameMenu : Menu
     {
-
-        Random rnd = new Random();//le générateur de nombres aléatoire
-        private SpriteFont font;//la police d'écriture du jeu
-        private static Inventaire inventaire;//inventaire du jeu
-        private static Crafting crafting;
-        private static AffichagePancarte affPancarte;
+        Random rnd = new Random();//générateur de nombres aléatoire
+        private SpriteFont font;//police d'écriture du jeu
+        private static Inventaire inventaire;//interface inventaire
+        private static Crafting crafting;//interface de craft
+        private static AffichagePancarte affPancarte;//interface des pancartes
         private int tileSize = 16;//la taille des images du jeu (en pixels)
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
-        private Camera camera;//la caméra du jeu
+        private Camera camera;//la caméra
 
-        //Les objets du jeu
+        //Les créatures en jeu
         private Player player;
         private Chicken chicken;
 
+        //Textures 
         private Texture2D rectTex;
         private Texture2D heart;
         private Texture2D water;
+        private Texture2D bread;
 
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
@@ -56,6 +57,7 @@ namespace LifeInTheWild
             rectTex = Loader.Images["rect"];
             heart = Loader.Images["heart"];
             water = Loader.Images["water"];
+            bread = Loader.Images["bread"];
 
             player = new Player(new Vector2(256, 256), 100, "playerup");
             camera = new Camera();
@@ -94,7 +96,8 @@ namespace LifeInTheWild
             inventaire.Update();
             chicken.Update(objets);
 
-            for (int i = 0; i < objets.Count; i++)//pour toutes les entites
+            //Vérifie chaque entitée et la détruit si elle n'a plus de vie
+            for (int i = 0; i < objets.Count; i++)
             {
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
@@ -103,6 +106,12 @@ namespace LifeInTheWild
                     //DebugConsole.addLine("Destroying: " + objets[i]);
                 }
             }
+
+            if (player.getHP() <= 0)
+            {
+                DebugConsole.addLine("Vous avez perdu la partie, vous etes mort");
+            }
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -145,28 +154,24 @@ namespace LifeInTheWild
 
             //nouvelle spritebatch pour l'interface------------------------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            //spriteBatch.DrawString(font, "HP: " + player.getHP().ToString(), new Vector2(10, 10), Color.Red);
-            //spriteBatch.DrawString(font, "Faim: " + player.getHunger().ToString(), new Vector2(10, 25), Color.Red);
-            //spriteBatch.DrawString(font, "Soif: " + player.getThirst().ToString(), new Vector2(10, 40), Color.Red);
-            spriteBatch.DrawString(font, "Outils: " + player.getOutil().ToString(), new Vector2(10, 55), Color.Red);
-            spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.Red);
-            spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
+            //spriteBatch.DrawString(font, "HP: " + player.getHP(), new Vector2(10, 55), Color.Red);
+            //spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.Red);
+            //spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.Red);
-            spriteBatch.DrawString(font, "Inventory Size: " + inventaire.Size(), new Vector2(10, 130), Color.Red);
 
             for (int i = 0; i <= player.getHP() / 10; i++)
             {
-                spriteBatch.Draw(heart, new Vector2((18 * i) + 10, 0), Color.Fuchsia);
+                spriteBatch.Draw(heart, new Vector2((18 * i) + 10, 0), Color.White);
             }
 
             for (int i = 0; i <= player.getHunger() / 10; i++)
             {
-                spriteBatch.Draw(rectTex, new Vector2((18 * i) + 10, 25), Color.Fuchsia);
+                spriteBatch.Draw(bread, new Vector2((18 * i) + 10, 25), Color.White);
             }
 
             for (int i = 0; i <= player.getThirst() / 10; i++)
             {
-                spriteBatch.Draw(water, new Vector2((18 * i) + 10, 50), Color.Fuchsia);
+                spriteBatch.Draw(water, new Vector2((18 * i) + 10, 50), Color.White);
             }
 
             DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));

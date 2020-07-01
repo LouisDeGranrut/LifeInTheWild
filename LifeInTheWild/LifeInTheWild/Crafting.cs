@@ -48,6 +48,5 @@ namespace LifeInTheWild
                 spriteBatch.DrawString(font, "4 - Stone Wall", new Vector2(510, 110), brun);
             }
         }
-
     }
 }

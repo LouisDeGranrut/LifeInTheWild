@@ -27,7 +27,7 @@ namespace LifeInTheWild
                 "tree","sapin","rocks","pot","bush","door","door_open","chest","playerup","playerdown","playerleft","playerright",
                 "grass","grass2","grass3","flowers","dirt","woodTile","campfire","crop","chicken_left","chicken_right",
                 "chicken_up","chicken_down","wallFace","rect","window","panneau","pancarteWindow","well","anvil","flatrock",
-                "heart","water"
+                "heart","water","bread"
             };
 
             foreach(string img in imagesName)

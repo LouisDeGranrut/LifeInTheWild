@@ -33,11 +33,10 @@ namespace LifeInTheWild
         // Constructeur
         public Player(Vector2 pos, int hp, string image) : base(pos, image, hp)
         {
-            this.hp = hp;
-            this.hit = Loader.Sounds["hit"];
-            this.mow = Loader.Sounds["mow"]; ;
             this.hunger = 100;
             this.thirst = 100;
+            this.hit = Loader.Sounds["hit"];
+            this.mow = Loader.Sounds["mow"]; ;
 
             this.down = Loader.Images["playerdown"];
             this.left = Loader.Images["playerleft"];
@@ -54,6 +53,14 @@ namespace LifeInTheWild
 
             hunger -= .005f;
             thirst -= .005f;
+
+            if(hunger <= 0 || thirst <= 0){
+                hp -= .05f;
+            }
+            else
+            {
+                hp = 100;
+            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;
@@ -126,9 +133,9 @@ namespace LifeInTheWild
 
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
-                if (CollisionManager(objets, position + dir * 4) != null)// PIRE CODE EVER
+                if (CollisionManager(objets, position + dir * 4) != null)
                 {
-                    CollisionManager(objets, position + dir * 4).Damage(1);// PIRE CODE EVER
+                    CollisionManager(objets, position + dir * 4).Damage(1);
                     hit.Play();                    
                 }
                 else//si on collisionne avec rien

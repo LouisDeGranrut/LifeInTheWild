@@ -17,7 +17,6 @@ namespace LifeInTheWild
         {
             this.window = Loader.Images["window"];
             this.items = new List<Item>();
-            //items.Add(new Item("arbre", 1));
         }
 
         public override void Update()

@@ -6,6 +6,7 @@
   <SourceFiles>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/anvil.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/basic.spritefont</File>
+    <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bread.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bush.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/campfire.png</File>
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/chest.png</File>
@@ -45,6 +46,7 @@
     <File>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/woodTile.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
