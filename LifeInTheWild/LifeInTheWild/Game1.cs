@@ -53,7 +53,7 @@ namespace LifeInTheWild
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(new Color(109,170,44));
 
             menuActuel.Draw(spriteBatch);
 

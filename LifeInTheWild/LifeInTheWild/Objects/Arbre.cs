@@ -17,7 +17,7 @@ namespace LifeInTheWild
 
         public override void Destroy(Inventaire inventaire, List<Entity> objets, Entity entity)
         {
-            inventaire.AddItem(new Item("arbre", 1));
+            inventaire.AddItem(new Item("bois", 1));
             base.Destroy(inventaire, objets, entity);
         }
 

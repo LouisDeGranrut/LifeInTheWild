@@ -20,7 +20,7 @@ namespace LifeInTheWild
 
         public override void Interact(Player player, Inventaire inventaire, List<Entity> objets)
         {
-            player.addHunger(5);
+            player.addHunger(10);
             this.Destroy(inventaire, objets, this);
             base.Interact(player, inventaire, objets);
         }

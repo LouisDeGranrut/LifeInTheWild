@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace LifeInTheWild
         private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
         private Camera camera;//la caméra
+        private bool debug;
 
         //Les créatures en jeu
         private Player player;
@@ -40,6 +42,7 @@ namespace LifeInTheWild
         public GameMenu() : base()
         {
             font = Loader.Fonts["basic"];
+            debug = false;
 
             inventaire = new Inventaire();
             crafting = new Crafting();
@@ -60,22 +63,21 @@ namespace LifeInTheWild
             bread = Loader.Images["bread"];
 
             player = new Player(new Vector2(256, 256), 100, "playerup");
-            camera = new Camera();
-            chicken = new Chicken(new Vector2(256 + 16, 256 + 16), "chicken_left", 10);
-
-            //fais apparaitre 75 arbres, buissons, cailloux...
-            for (int i = 0; i <= 75; i++)
-            {
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "bush", 3));
-                objets.Add(new Rock(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "rocks", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "tree", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "sapin", 3));
-                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "crop", 3));
-                objets.Add(new Well(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "well", 3));
-                objets.Add(new Pancarte(new Vector2(rnd.Next(mapSize) * tileSize, rnd.Next(mapSize) * tileSize), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
+            objets.Add(new Pancarte(new Vector2(200, 200), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
                 "atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
                 "de planter des graines pour\npouvoir subvenir a vos besoins." +
                 " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
+            camera = new Camera();
+            chicken = new Chicken(new Vector2(256 + 16, 256 + 16), "chicken_left", 10);
+
+            //fais apparaitre 70 arbres, buissons, cailloux...
+            for (int i = 0; i <= 70; i++)
+            {
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "bush", 3));
+                objets.Add(new Rock(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "rocks", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "tree", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "sapin", 3));
+                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "crop", 3));
             }
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)//---------------------------------------------------------------------------------
@@ -86,6 +88,27 @@ namespace LifeInTheWild
                     map[i, j] = rnd.Next(0, 4);
                 }
             }
+
+            //Géneration des barrieres autour du terrain
+            for(int i = 0; i < 50; i++)
+            {
+                objets.Add(new Arbre(new Vector2(i * tileSize, 0), "tree", 900));
+                objets.Add(new Arbre(new Vector2(0, i*tileSize), "tree", 900));
+                objets.Add(new Arbre(new Vector2(i * tileSize, 50*tileSize), "tree", 900));
+                objets.Add(new Arbre(new Vector2(50*tileSize, i * tileSize), "tree", 900));
+            }
+
+
+            //Vérifie qu'aucune entité n'est sur le joueur
+            for (int i = 0; i < objets.Count; i++)
+            {
+                if (objets[i].getPosition() == player.getPosition())
+                {
+                    objets[i].Destroy(inventaire, objets, objets[i]);
+                    DebugConsole.addLine("Destroying: " + objets[i]);
+                }
+            }
+
         }
 
         public override void Update(GameTime time)
@@ -96,6 +119,11 @@ namespace LifeInTheWild
             inventaire.Update();
             chicken.Update(objets);
 
+            if (Keyboard.GetState().IsKeyDown(Keys.F1))
+            {
+                debug = !debug;
+            }
+
             //Vérifie chaque entitée et la détruit si elle n'a plus de vie
             for (int i = 0; i < objets.Count; i++)
             {
@@ -103,7 +131,7 @@ namespace LifeInTheWild
                 {
                     objets[i].Destroy(inventaire, objets, objets[i]);
                     Loader.Sounds["destroy"].Play();
-                    //DebugConsole.addLine("Destroying: " + objets[i]);
+                    DebugConsole.addLine("Destroying: " + objets[i]);
                 }
             }
 
@@ -111,12 +139,10 @@ namespace LifeInTheWild
             {
                 DebugConsole.addLine("Vous avez perdu la partie, vous etes mort");
             }
-
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            //GraphicsDevice.Clear(Color.Black);//Couleur d'arrière plan
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, camera.Transform * Matrix.CreateScale(2f));
 
             //Affichage du terrain-----------------------------------------------------------------------------------------------------------------------------
@@ -141,7 +167,11 @@ namespace LifeInTheWild
                 //if (player.getPosition().X < el.getPosition().X + 1224 && player.getPosition().X + 1224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
                 //{
                 el.Draw(spriteBatch);
-                //spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
+
+                if (debug)//affiche la console uniquement en mode debug
+                {
+                    spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
+                }
                 //}
             }
 
@@ -174,7 +204,11 @@ namespace LifeInTheWild
                 spriteBatch.Draw(water, new Vector2((18 * i) + 10, 50), Color.White);
             }
 
-            DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
+            if (debug)//affiche la console uniquement en mode debug
+            {
+                DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
+            }
+
             if (inventaire.isActive)
                 inventaire.Draw(spriteBatch, font);
             if (affPancarte.isActive)
