@@ -44,7 +44,10 @@
     <Compile Include="AffichagePancarte.cs" />
     <Compile Include="Crafting.cs" />
     <Compile Include="core\Item.cs" />
+    <Compile Include="GameMenu.cs" />
     <Compile Include="Inventaire.cs" />
+    <Compile Include="core\Menu.cs" />
+    <Compile Include="MainMenu.cs" />
     <Compile Include="Objects\Arbre.cs" />
     <Compile Include="core\Camera.cs" />
     <Compile Include="Objects\Chicken.cs" />

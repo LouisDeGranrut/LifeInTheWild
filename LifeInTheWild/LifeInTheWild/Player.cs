@@ -31,11 +31,11 @@ namespace LifeInTheWild
         private Vector2 dir;//permet de stocker la direction du joueur
 
         // Constructeur
-        public Player(Vector2 pos, int hp, string image, SoundEffect hit, SoundEffect mow, Game game) : base(pos, image, hp)
+        public Player(Vector2 pos, int hp, string image) : base(pos, image, hp)
         {
             this.hp = hp;
-            this.hit = hit;
-            this.mow = mow;
+            this.hit = Loader.Sounds["hit"];
+            this.mow = Loader.Sounds["mow"]; ;
             this.hunger = 100;
             this.thirst = 100;
 
@@ -52,8 +52,8 @@ namespace LifeInTheWild
             KeyboardState newState = Keyboard.GetState();  // get the newest state
             Vector2 newPosition = position;
 
-            hunger -= .05f;//.0005f;
-            thirst -= .05f;//.0005f;
+            hunger -= .005f;
+            thirst -= .005f;
 
             if (Keyboard.GetState().IsKeyDown(Keys.S)) {
                 this.texture = up;

@@ -10,16 +10,12 @@ namespace LifeInTheWild
 {
     public class Inventaire : Overlay
     {
-        private Texture2D slot;
         private Texture2D window;
-        private Game game;
         private List<Item> items;
 
-        public Inventaire(Game game) : base(game)
+        public Inventaire() : base()
         {
-            this.slot = Loader.Images["rect"];
             this.window = Loader.Images["window"];
-            this.game = game;
             this.items = new List<Item>();
             //items.Add(new Item("arbre", 1));
         }

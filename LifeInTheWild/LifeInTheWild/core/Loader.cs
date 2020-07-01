@@ -14,6 +14,7 @@ namespace LifeInTheWild
 
         public static Dictionary<string, Texture2D> Images;
         public static Dictionary<string, SoundEffect> Sounds;
+        public static Dictionary<string, SpriteFont> Fonts;
 
         //On peut créer une fonction pour charger certaines images précises en fonction des besoins 
         //plutot que de charger toutes les images d'un coup
@@ -48,6 +49,22 @@ namespace LifeInTheWild
             foreach (string file in fileName)
             {
                 Sounds.Add(file, content.Load<SoundEffect>(file));
+            }
+
+        }
+
+        public static void LoadFont(ContentManager content)
+        {
+            Fonts = new Dictionary<string, SpriteFont>();
+
+            List<string> fileName = new List<string>()
+            {
+                "basic"
+            };
+
+            foreach (string file in fileName)
+            {
+                Fonts.Add(file, content.Load<SpriteFont>(file));
             }
 
         }

@@ -14,10 +14,9 @@ namespace LifeInTheWild
 
         private Texture2D window;
 
-        public Crafting(Game game) : base(game)
+        public Crafting() : base()
         {
             this.window = Loader.Images["window"];
-            this.game = game;
         }
 
         public override void Update()

@@ -10,17 +10,12 @@ namespace LifeInTheWild
 {
     public class AffichagePancarte : Overlay
     {
-        private Texture2D slot;
         private Texture2D window;
         private string text;
-        private Game game;
 
-        private List<Item> items;
-
-        public AffichagePancarte(Game game) : base(game)
+        public AffichagePancarte() : base()
         {
             this.window = Loader.Images["pancarteWindow"];
-            this.game = game;
         }
 
         public override void Update()

@@ -12,11 +12,9 @@ namespace LifeInTheWild
     {
 
         public bool isActive { get; set; }
-        protected Game game;
 
-        public Overlay (Game game)
+        public Overlay ()
         {
-            this.game = game;
         }
 
         public void Activate()
