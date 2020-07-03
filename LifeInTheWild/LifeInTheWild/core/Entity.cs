@@ -27,6 +27,11 @@ namespace LifeInTheWild
             return this.position;
         }
 
+        public void setPosition(Vector2 newPos)
+        {
+            this.position = newPos;
+        }
+
         public float getHP()
         {
             return this.hp;

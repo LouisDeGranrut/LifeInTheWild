@@ -131,7 +131,6 @@ namespace LifeInTheWild
                 {
                     objets[i].Destroy(inventaire, objets, objets[i]);
                     Loader.Sounds["destroy"].Play();
-                    DebugConsole.addLine("Destroying: " + objets[i]);
                 }
             }
 

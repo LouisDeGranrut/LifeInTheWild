@@ -144,12 +144,8 @@ namespace LifeInTheWild
                     switch (outil)
                     {
                         case 1://planter des graines
-                            double posX = Math.Round((this.position.X + (this.dir.X*16))/16);
-                            double posY = Math.Round((this.position.Y + (this.dir.Y*16))/16);
-                            Entity a = new Vegetable(new Vector2((float)posX*16, (float)posY*16), "crop", 2);
-                            //retirer une graine de l'inventaire
-                            objets.Add(a);
-                            DebugConsole.addLine("Spawning: " + a);
+                            spawnObject(objets,new Vegetable(new Vector2(0,0), "crop", 2));
+                            inventaire.removeItem(new Item("graine", 1));
                             outil = 0;
                             break;
                         case 2://mettre du parquet
@@ -159,19 +155,11 @@ namespace LifeInTheWild
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
                             break;
                         case 4:
-                            posX = Math.Round((this.position.X + (this.dir.X * 16)) / 16);
-                            posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
-                            a = new Wall(new Vector2((float)posX * 16, (float)posY * 16), "wallFace","flatrock", 2);
-                            objets.Add(a);
-                            DebugConsole.addLine("Spawning: " + a);
+                            spawnObject(objets, new Wall(new Vector2(0,0), "wallFace", "flatrock", 2));
                             outil = 0;
                             break;
                         case 5:
-                            posX = Math.Round((this.position.X + (this.dir.X * 16)) / 16);
-                            posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
-                            a = new Door(new Vector2((float)posX * 16, (float)posY * 16), "door", "door_open", 2);
-                            objets.Add(a);
-                            DebugConsole.addLine("Spawning: " + a);
+                            spawnObject(objets, new Arbre(new Vector2(0,0), "campfire", 2));
                             outil = 0;
                             break;
                     }
@@ -185,6 +173,15 @@ namespace LifeInTheWild
             }
             
             base.Update(objets);
+        }
+
+        private void spawnObject(List<Entity> objets,Entity objet)
+        {
+            double posX = Math.Round((this.position.X + (this.dir.X * 16)) / 16);
+            double posY = Math.Round((this.position.Y + (this.dir.Y * 16)) / 16);
+            objet.setPosition(new Vector2((float)posX * 16, (float)posY * 16));
+            objets.Add(objet);
+            DebugConsole.addLine("Spawning: " + objet);
         }
 
         public override void Draw(SpriteBatch spriteBatch)

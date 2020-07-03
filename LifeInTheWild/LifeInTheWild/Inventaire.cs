@@ -67,6 +67,17 @@ namespace LifeInTheWild
             }
         }
 
+        public void removeItem(Item i)
+        {
+            for (int j = 0; j < items.Count; j++)
+            {
+                if (items[j].getName() == i.getName())
+                {
+                    items[j].addQuantity(-1);
+                }
+            }
+        }
+
         public int Size()
         {
             return this.items.Count;
