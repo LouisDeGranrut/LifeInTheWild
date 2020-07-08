@@ -144,12 +144,14 @@ namespace LifeInTheWild
                     switch (outil)
                     {
                         case 1://planter des graines
-                            spawnObject(objets,new Vegetable(new Vector2(0,0), "crop", 2));
-                            inventaire.removeItem(new Item("graine", 1));
+                            spawnObject(objets,new Arbre(new Vector2(0,0), "campfire", 2));
+                            inventaire.removeItem(new Item("bois", 1));
                             outil = 0;
                             break;
                         case 2://mettre du parquet
-                            map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
+                            spawnObject(objets, new Well(new Vector2(0, 0), "well", 2));
+                            inventaire.removeItem(new Item("pierre", 1));
+                            outil = 0;
                             break;
                         case 3://labourer le sol
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
@@ -195,6 +197,11 @@ namespace LifeInTheWild
         public int getOutil()
         {
             return this.outil;
+        }
+
+        public void setOutil(int n)
+        {
+            this.outil = n;
         }
 
         public Vector2 getDir()

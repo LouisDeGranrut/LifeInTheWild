@@ -71,7 +71,7 @@ namespace LifeInTheWild
         {
             for (int j = 0; j < items.Count; j++)
             {
-                if (items[j].getName() == i.getName())
+                if (items[j].getName() == i.getName() && items[j].getQuantity()>= 1)
                 {
                     items[j].addQuantity(-1);
                 }

@@ -40,13 +40,21 @@ namespace LifeInTheWild
         protected override void Update(GameTime gameTime)
         {
 
-            //C'est pas là qu'il faut le mettre mais dans MainMenu, à voir plus tard
-            if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+            menuActuel.Update(gameTime);
+
+            if (menuActuel is MainMenu menu)
             {
-                menuActuel = new GameMenu();
+                if(menu.selection == 1)
+                {
+                    menuActuel = new GameMenu();
+                }
+                if (menu.selection == 2)
+                {
+                    Exit();
+                }
             }
 
-            menuActuel.Update(gameTime);
+
 
             base.Update(gameTime);
         }

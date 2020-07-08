@@ -44,10 +44,6 @@ namespace LifeInTheWild
             font = Loader.Fonts["basic"];
             debug = false;
 
-            inventaire = new Inventaire();
-            crafting = new Crafting();
-            affPancarte = new AffichagePancarte();
-
             floorTiles = new Texture2D[10];
             floorTiles[0] = Loader.Images["grass"];
             floorTiles[1] = Loader.Images["grass2"];
@@ -70,6 +66,10 @@ namespace LifeInTheWild
             camera = new Camera();
             chicken = new Chicken(new Vector2(256 + 16, 256 + 16), "chicken_left", 10);
 
+            inventaire = new Inventaire();
+            crafting = new Crafting(player);
+            affPancarte = new AffichagePancarte();
+
             //fais apparaitre 70 arbres, buissons, cailloux...
             for (int i = 0; i <= 70; i++)
             {
@@ -80,7 +80,7 @@ namespace LifeInTheWild
                 objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "crop", 3));
             }
 
-            //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)//---------------------------------------------------------------------------------
+            //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)---------------------------------------------------------------------------------
             for (int i = 0; i <= mapSize - 1; i++)
             {
                 for (int j = 0; j <= mapSize - 1; j++)
@@ -163,15 +163,12 @@ namespace LifeInTheWild
 
             foreach (Entity el in objets)//pour tous les objets de la map--------------------------------------------------------------------------------------
             {
-                //if (player.getPosition().X < el.getPosition().X + 1224 && player.getPosition().X + 1224 > el.getPosition().X && player.getPosition().Y < el.getPosition().Y + 176 && player.getPosition().Y + 176 > el.getPosition().Y)
-                //{
                 el.Draw(spriteBatch);
 
                 if (debug)//affiche la console uniquement en mode debug
                 {
                     spriteBatch.Draw(rectTex, new Vector2((int)el.getPosition().X, (int)el.getPosition().Y), Color.Fuchsia);
                 }
-                //}
             }
 
             player.Draw(spriteBatch);
