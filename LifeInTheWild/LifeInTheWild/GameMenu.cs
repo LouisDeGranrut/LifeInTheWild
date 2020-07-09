@@ -77,7 +77,7 @@ namespace LifeInTheWild
                 objets.Add(new Rock(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "rocks", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "tree", 3));
                 objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "sapin", 3));
-                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "crop", 3));
+                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize),"seed", "crop", 3));
             }
 
             //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)---------------------------------------------------------------------------------

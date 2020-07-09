@@ -12,10 +12,12 @@ namespace LifeInTheWild
     {
 
         private float age;
+        private Texture2D seed;
 
-        public Vegetable(Vector2 pos, string image, int hp):base(pos,image,hp)
+        public Vegetable(Vector2 pos, string seed, string image, int hp):base(pos,image,hp)
         {
             age = 0;
+            this.seed = Loader.Images[seed];
         }
 
         public override void Interact(Player player, Inventaire inventaire, List<Entity> objets)

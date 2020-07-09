@@ -170,7 +170,7 @@ namespace LifeInTheWild
                         case 5:
                             if (map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)] == 4)
                             {
-                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "crop", 2));
+                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "seed","crop", 2));
                                 inventaire.removeItem(new Item("graine", 1));
                                 outil = 0;
                             }
