@@ -131,6 +131,12 @@ namespace LifeInTheWild
                 crafting.Activate();
             }
 
+            if (newState.IsKeyDown(Keys.L) && oldState.IsKeyUp(Keys.L))
+            {
+                map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;
+                mow.Play();//son 
+            }
+
             if (newState.IsKeyDown(Keys.Space) && oldState.IsKeyUp(Keys.Space))
             {
                 if (CollisionManager(objets, position + dir * 4) != null)
@@ -143,26 +149,35 @@ namespace LifeInTheWild
                     mow.Play();//son 
                     switch (outil)
                     {
-                        case 1://planter des graines
-                            spawnObject(objets,new Arbre(new Vector2(0,0), "campfire", 2));
-                            inventaire.removeItem(new Item("bois", 1));
-                            outil = 0;
+                        case 1://labourer le sol
+                            
                             break;
-                        case 2://mettre du parquet
+                        case 2://puis
                             spawnObject(objets, new Well(new Vector2(0, 0), "well", 2));
                             inventaire.removeItem(new Item("pierre", 1));
                             outil = 0;
                             break;
-                        case 3://labourer le sol
-                            map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;                            
+                        case 3://feu de camp
+                            spawnObject(objets, new Arbre(new Vector2(0, 0), "campfire", 2));
+                            inventaire.removeItem(new Item("bois", 1));
+                            outil = 0;
                             break;
                         case 4:
-                            spawnObject(objets, new Wall(new Vector2(0,0), "wallFace", "flatrock", 2));
+                            spawnObject(objets, new Wall(new Vector2(0, 0), "wallFace", "flatrock", 2));
+                            inventaire.removeItem(new Item("pierre", 1));
                             outil = 0;
                             break;
                         case 5:
-                            spawnObject(objets, new Arbre(new Vector2(0,0), "campfire", 2));
-                            outil = 0;
+                            if (map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)] == 4)
+                            {
+                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "crop", 2));
+                                inventaire.removeItem(new Item("graine", 1));
+                                outil = 0;
+                            }
+                            else
+                            {
+                                DebugConsole.addLine(map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)].ToString());
+                            }
                             break;
                     }
                 }
@@ -173,7 +188,6 @@ namespace LifeInTheWild
             {
                 affPancarte.Activate(thePancarte.getText());
             }
-            
             base.Update(objets);
         }
 
@@ -189,7 +203,6 @@ namespace LifeInTheWild
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(this.texture, new Vector2(this.position.X, this.position.Y), Color.White);
-
         }
 
         //Getters & Setters-------------------------------------------------------------------------------------------------------------------------------------

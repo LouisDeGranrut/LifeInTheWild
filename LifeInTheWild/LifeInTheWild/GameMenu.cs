@@ -173,16 +173,16 @@ namespace LifeInTheWild
 
             player.Draw(spriteBatch);
             chicken.Draw(spriteBatch);
-            double posX = Math.Round((player.getPosition().X + (player.getDir().X * 16)) / 16);
-            double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * 16)) / 16);
+            double posX = Math.Round((player.getPosition().X + (player.getDir().X * tileSize)) / tileSize);
+            double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * tileSize)) / tileSize);
             spriteBatch.Draw(rectTex, new Vector2((int)posX * 16, (int)posY * 16), Color.Fuchsia);
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface------------------------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
             //spriteBatch.DrawString(font, "HP: " + player.getHP(), new Vector2(10, 55), Color.Red);
-            //spriteBatch.DrawString(font, ("Player Pos: " + player.getPosition().X) + " " + (player.getPosition().Y), new Vector2(10, 70), Color.Red);
-            //spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
+            spriteBatch.DrawString(font, "Player Target Pos: " + Math.Round((player.getPosition().X + (player.getDir().X * tileSize)) / tileSize) + " " + Math.Round((player.getPosition().Y + (player.getDir().X * tileSize)) / tileSize), new Vector2(10, 70), Color.Red);
+            spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
             spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.Red);
 
             for (int i = 0; i <= player.getHP() / 10; i++)
