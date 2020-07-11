@@ -149,28 +149,26 @@ namespace LifeInTheWild
                     mow.Play();//son 
                     switch (outil)
                     {
-                        case 1://labourer le sol
-                            
+                        case 1:
+                            spawnObject(objets, new Wall(new Vector2(0, 0), "wallFace", "flatrock", 2));
+                            inventaire.removeItem(new Item("pierre", 1));
                             break;
                         case 2://puis
                             spawnObject(objets, new Well(new Vector2(0, 0), "well", 2));
                             inventaire.removeItem(new Item("pierre", 1));
-                            outil = 0;
                             break;
                         case 3://feu de camp
                             spawnObject(objets, new Arbre(new Vector2(0, 0), "campfire", 2));
                             inventaire.removeItem(new Item("bois", 1));
-                            outil = 0;
                             break;
                         case 4:
-                            spawnObject(objets, new Wall(new Vector2(0, 0), "wallFace", "flatrock", 2));
-                            inventaire.removeItem(new Item("pierre", 1));
-                            outil = 0;
+                            spawnObject(objets, new Door(new Vector2(0, 0), "door", "door_open", 2));
+                            inventaire.removeItem(new Item("bois", 1));
                             break;
                         case 5:
                             if (map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)] == 4)
                             {
-                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "seed","crop", 2));
+                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "seed","seed", 2));
                                 inventaire.removeItem(new Item("graine", 1));
                                 outil = 0;
                             }
@@ -178,6 +176,13 @@ namespace LifeInTheWild
                             {
                                 DebugConsole.addLine(map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)].ToString());
                             }
+                            break;
+                        case 6:
+                            spawnObject(objets, new Arbre(new Vector2(0, 0), "anvil", 2));
+                            inventaire.removeItem(new Item("pierre", 1));
+                            break;
+                        case 7:
+                            map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
                             break;
                     }
                 }

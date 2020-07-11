@@ -59,12 +59,13 @@ namespace LifeInTheWild
                 Color brun = new Color(68, 36, 52);
                 spriteBatch.Draw(window, new Rectangle(460, 0, 460, 680), Color.White);
                 spriteBatch.DrawString(font, "CRAFTING (veuillez selectionner l'objet a construire)", new Vector2(510, 50), brun);
-                spriteBatch.DrawString(font, "0 - Labourer", new Vector2(510, 65), brun);
+                spriteBatch.DrawString(font, "0 - Mur en Pierre", new Vector2(510, 65), brun);
                 spriteBatch.DrawString(font, "1 - Puis", new Vector2(510, 80), brun);
                 spriteBatch.DrawString(font, "2 - Feu de Camp", new Vector2(510, 95), brun);
                 spriteBatch.DrawString(font, "3 - Porte", new Vector2(510, 110), brun);
-                spriteBatch.DrawString(font, "4 - Enclume", new Vector2(510, 125), brun);
-                spriteBatch.DrawString(font, "5 - Parquet", new Vector2(510, 140), brun);
+                spriteBatch.DrawString(font, "4 - Planter", new Vector2(510, 125), brun);
+                spriteBatch.DrawString(font, "5 - Enclume", new Vector2(510, 140), brun);
+                spriteBatch.DrawString(font, "6 - Parquet", new Vector2(510, 155), brun);
             }
         }
     }
