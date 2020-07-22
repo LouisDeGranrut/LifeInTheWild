@@ -45,28 +45,27 @@ namespace LifeInTheWild
             return ((Math.Pow(this.position.X - objet.getPosition().X, 2) + Math.Pow(this.position.Y - objet.getPosition().Y, 2)) < (256));
         }
 
-        //retourne un booleen si la créature collisionne avec l'objet donné
-        public bool collisionObjet(Entity objet, Vector2 v)
+        //retourne un booleen si la créature collisionne avec l'objet Entity
+        public bool collisionObjet(Entity objet, Vector2 position)
         {
             int size = 14;
-            return (v.X < objet.getPosition().X + size &&
-                    v.X + size > objet.getPosition().X &&
-                    v.Y < objet.getPosition().Y + size &&
-                    v.Y + size > objet.getPosition().Y);
+            return (position.X < objet.getPosition().X + size &&
+                    position.X + size > objet.getPosition().X &&
+                    position.Y < objet.getPosition().Y + size &&
+                    position.Y + size > objet.getPosition().Y);
         }
 
         public virtual void Update(List<Entity> objets)
         {
             //Gestion des mouvements
             OldPosition = position;
-            if (CollisionManager(objets, newPosition) == null){//si on a pas de collisions
+            if (CollisionManager(objets, newPosition) == null || CollisionManager(objets, newPosition).getSolid() == false){//si on a pas de collisions
                 position = newPosition;
             }
-            else//sinon
+            else
             {
                 newPosition = OldPosition;
-            }
-
+            }               
             base.Update();
         }
 

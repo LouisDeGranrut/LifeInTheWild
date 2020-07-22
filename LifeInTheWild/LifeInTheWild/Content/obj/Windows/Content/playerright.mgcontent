@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerright.png</SourceFile>
-  <SourceTime>2020-06-13T13:03:07.7352511+02:00</SourceTime>
-  <DestFile>C:/Users/Lou/source/repos/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/playerright.xnb</DestFile>
-  <DestTime>2020-06-13T13:04:40.9408447+02:00</DestTime>
+  <SourceFile>C:/xampp/htdocs/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/playerright.png</SourceFile>
+  <SourceTime>2020-07-11T14:49:10.5072149+02:00</SourceTime>
+  <DestFile>C:/xampp/htdocs/LifeInTheWild/LifeInTheWild/LifeInTheWild/Content/bin/Windows/Content/playerright.xnb</DestFile>
+  <DestTime>2020-07-11T15:22:40.0348062+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-12-08T17:35:54+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

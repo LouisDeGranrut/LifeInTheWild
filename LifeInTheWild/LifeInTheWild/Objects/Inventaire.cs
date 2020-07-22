@@ -21,19 +21,19 @@ namespace LifeInTheWild
 
         public override void Update()
         {
-
         }
 
         public override void Draw(SpriteBatch spriteBatch, SpriteFont font)
         {
+            Color brun = new Color(68, 36, 52);
             if (isActive)
             {
                 spriteBatch.Draw(window, new Rectangle(0,0, 460,680), Color.White);
                 for(int i = 0; i<items.Count; i++)
                 {
-                    spriteBatch.DrawString(font, "-" + items[i].getName() + " x" + items[i].getQuantity(), new Vector2(50, 70+(15*i)), Color.Red);
+                    spriteBatch.DrawString(font, "-" + items[i].getName() + " x" + items[i].getQuantity(), new Vector2(50, 70+(15*i)), brun);
                 }
-                spriteBatch.DrawString(font, "INVENTAIRE", new Vector2(50, 50), Color.Red);
+                spriteBatch.DrawString(font, "INVENTAIRE", new Vector2(50, 50), brun);
             }
         }
 
@@ -41,7 +41,7 @@ namespace LifeInTheWild
         {
             if(items.Count <= 0)//si l'inventaire est vide
             {
-                DebugConsole.addLine("Inventaire vide, on ajoute l'objet");
+                DebugConsole.addLine("Inventaire vide, ajout de l'objet");
                 this.items.Add(i);//on ajoute l'objet
             }
             else//si l'inventaire n'est pas vide
@@ -82,6 +82,5 @@ namespace LifeInTheWild
         {
             return this.items.Count;
         }
-
     }
 }

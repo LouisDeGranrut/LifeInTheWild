@@ -13,6 +13,7 @@ namespace LifeInTheWild
 
         protected Vector2 position;
         protected Texture2D texture;
+        protected bool solid;
         protected float hp;
 
         public Entity(Vector2 pos, string image, int hp)
@@ -20,11 +21,17 @@ namespace LifeInTheWild
             this.position = pos;
             this.texture = Loader.Images[image];
             this.hp = hp;
+            this.solid = true;
         }
 
         public Vector2 getPosition()
         {
             return this.position;
+        }
+
+        public bool getSolid()
+        {
+            return this.solid;
         }
 
         public void setPosition(Vector2 newPos)

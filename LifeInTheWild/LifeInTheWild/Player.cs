@@ -14,16 +14,16 @@ namespace LifeInTheWild
 {
     public class Player : Creature//hérite de Entity
     {
-        //Gameplay-----------------------------------------
+        // Gameplay
         private int outil;//l'outils équipé
         private float hunger;
         private float thirst;
-        //Textures-----------------------------------------
+        // Textures
         private Texture2D down;
         private Texture2D left;
         private Texture2D right;
         private Texture2D up;
-        //Audio--------------------------------------------
+        // Audio
         SoundEffect hit;
         SoundEffect mow;
 
@@ -48,13 +48,18 @@ namespace LifeInTheWild
 
         public virtual void Update(List<Entity> objets, int[,] map, Inventaire inventaire, Crafting crafting, AffichagePancarte affPancarte)
         {
-            KeyboardState newState = Keyboard.GetState();  // get the newest state
+            KeyboardState newState = Keyboard.GetState();
             Vector2 newPosition = position;
 
-            hunger -= .005f;
-            thirst -= .005f;
+            hunger -= .008f;
+            thirst -= .008f;
 
-            if(hunger <= 0 || thirst <= 0){
+            if(hunger >= 120)
+                hunger = 120;
+            if (thirst >= 120)
+                thirst = 120;
+
+            if (hunger <= 0 || thirst <= 0){
                 hp -= .05f;
             }
             else
@@ -91,16 +96,6 @@ namespace LifeInTheWild
                 this.newPosition.X += 1;
             }
 
-            if (newState.IsKeyDown(Keys.P) && oldState.IsKeyUp(Keys.P))//TEMPORAIRE
-            {
-                outil +=1;
-            }
-
-            if (newState.IsKeyDown(Keys.M) && oldState.IsKeyUp(Keys.M))//TEMPORAIRE
-            {
-                outil -= 1;
-            }
-
             if (newState.IsKeyDown(Keys.Escape) && oldState.IsKeyUp(Keys.Escape))
             {
                 if (affPancarte.getActive())
@@ -111,26 +106,28 @@ namespace LifeInTheWild
                     crafting.Activate();
             }
 
+            // Interaction
             if (newState.IsKeyDown(Keys.E) && oldState.IsKeyUp(Keys.E))
             {
                 if (CollisionManager(objets, newPosition + dir) is Entity theEntity)
-                {
                     theEntity.Interact(this, inventaire, objets);
-                }
             }
 
+            // Menu inventaire
             if (newState.IsKeyDown(Keys.I) && oldState.IsKeyUp(Keys.I))
             {
                 DebugConsole.addLine("Ouverture Inventaire");
                 inventaire.Activate();
             }
 
+            // Menu craft
             if (newState.IsKeyDown(Keys.C) && oldState.IsKeyUp(Keys.C))
             {
                 DebugConsole.addLine("Ouverture Crafting");
                 crafting.Activate();
             }
 
+            // Labourer
             if (newState.IsKeyDown(Keys.L) && oldState.IsKeyUp(Keys.L))
             {
                 map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 4;
@@ -149,7 +146,7 @@ namespace LifeInTheWild
                     mow.Play();//son 
                     switch (outil)
                     {
-                        case 1:
+                        case 1://mur en pierre
                             spawnObject(objets, new Wall(new Vector2(0, 0), "wallFace", "flatrock", 2));
                             inventaire.removeItem(new Item("pierre", 1));
                             break;
@@ -161,27 +158,26 @@ namespace LifeInTheWild
                             spawnObject(objets, new Arbre(new Vector2(0, 0), "campfire", 2));
                             inventaire.removeItem(new Item("bois", 1));
                             break;
-                        case 4:
+                        case 4://porte
                             spawnObject(objets, new Door(new Vector2(0, 0), "door", "door_open", 2));
                             inventaire.removeItem(new Item("bois", 1));
                             break;
-                        case 5:
-                            if (map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)] == 4)
+                        case 5://planter
+                            if (map[(int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16), (int)Math.Round((this.position.X + (this.dir.X * 16)) / 16)] == 4)
                             {
-                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "seed","seed", 2));
-                                inventaire.removeItem(new Item("graine", 1));
-                                outil = 0;
+                                spawnObject(objets, new Vegetable(new Vector2(0, 0), "seed","crop", 2));
+                                inventaire.removeItem(new Item("graine", 1));                                
                             }
                             else
                             {
                                 DebugConsole.addLine(map[(int)Math.Round((this.position.X + (this.dir.X * 16)) / 16), (int)Math.Round((this.position.Y + (this.dir.Y * 16)) / 16)].ToString());
                             }
                             break;
-                        case 6:
+                        case 6://enclume
                             spawnObject(objets, new Arbre(new Vector2(0, 0), "anvil", 2));
                             inventaire.removeItem(new Item("pierre", 1));
                             break;
-                        case 7:
+                        case 7://parquet
                             map[(int)((this.position.Y + 8) / 16), (int)((this.position.X + 8) / 16)] = 5;
                             break;
                     }

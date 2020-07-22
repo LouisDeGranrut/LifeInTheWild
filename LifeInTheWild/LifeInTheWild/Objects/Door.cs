@@ -20,12 +20,14 @@ namespace LifeInTheWild
             this.openTex = Loader.Images[open];
             this.closeTex = Loader.Images[image];
             this.texture = closeTex;
-            this.open = true;
+            this.open = false;
         }
 
         public override void Interact(Player player, Inventaire inventaire, List<Entity> objets)
         {
             this.open = !open;
+            this.solid = !solid;
+            DebugConsole.addLine(this.solid.ToString());
             if (open)
             {
                 this.texture = openTex;

@@ -41,11 +41,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AffichagePancarte.cs" />
-    <Compile Include="Crafting.cs" />
+    <Compile Include="Objects\AffichagePancarte.cs" />
+    <Compile Include="Objects\Crafting.cs" />
     <Compile Include="core\Item.cs" />
     <Compile Include="GameMenu.cs" />
-    <Compile Include="Inventaire.cs" />
+    <Compile Include="Objects\Inventaire.cs" />
     <Compile Include="core\Menu.cs" />
     <Compile Include="MainMenu.cs" />
     <Compile Include="Objects\Arbre.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="core\Creature.cs" />
     <Compile Include="core\DebugConsole.cs" />
     <Compile Include="core\Entity.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Objects\Game1.cs" />
     <Compile Include="core\Loader.cs" />
     <Compile Include="Objects\Door.cs" />
     <Compile Include="core\Overlay.cs" />
@@ -66,6 +66,7 @@
     <Compile Include="Objects\Rock.cs" />
     <Compile Include="Objects\Wall.cs" />
     <Compile Include="Objects\Vegetable.cs" />
+    <Compile Include="core\Terrain.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

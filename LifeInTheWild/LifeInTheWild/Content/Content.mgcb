@@ -140,7 +140,7 @@
 /processorParam:TextureFormat=Color
 /build:crop.png
 
-#begin D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png
+#begin chicken_left.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -150,7 +150,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:D:/GameDev/Assets/Assets Life In The Wild/chicken_left.png;chicken_left.png
+/build:chicken_left.png
 
 #begin destroy.wav
 /importer:WavImporter

@@ -17,11 +17,10 @@ namespace LifeInTheWild
         private static Inventaire inventaire;//interface inventaire
         private static Crafting crafting;//interface de craft
         private static AffichagePancarte affPancarte;//interface des pancartes
-        private int tileSize = 16;//la taille des images du jeu (en pixels)
-        private static int mapSize = 50;//la taille de la map
         private Texture2D[] floorTiles;//tableau contenant toutes les tiles de sol
-        private Camera camera;//la caméra
-        private bool debug;
+        private Camera camera;
+        private bool debug;//mode debug
+        private Terrain terrain;//la map
 
         //Les créatures en jeu
         private Player player;
@@ -36,15 +35,12 @@ namespace LifeInTheWild
         //Liste contenant tous les objets du jeu (sert aux collisions)
         List<Entity> objets = new List<Entity>();
 
-        //Tableau de mapSize rangs et mapSize colonnes (représente la map)
-        private int[,] map = new int[mapSize, mapSize];
-
         public GameMenu() : base()
         {
             font = Loader.Fonts["basic"];
             debug = false;
 
-            floorTiles = new Texture2D[10];
+            floorTiles = new Texture2D[6];
             floorTiles[0] = Loader.Images["grass"];
             floorTiles[1] = Loader.Images["grass2"];
             floorTiles[2] = Loader.Images["grass3"];
@@ -59,7 +55,7 @@ namespace LifeInTheWild
             bread = Loader.Images["bread"];
 
             player = new Player(new Vector2(256, 256), 100, "playerup");
-            objets.Add(new Pancarte(new Vector2(200, 200), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
+            objets.Add(new Pancarte(new Vector2(14*16, 14*16), "panneau", 3, "Bienvenu sur Life In The Wild, il semblerait que vous ayez\n" +
                 "atterit dans un terriroire inconnu. Avant de mourrir de faim,\nil est suggere de partir recuperer du bois et de la pierre\npour construire un abris et" +
                 "de planter des graines pour\npouvoir subvenir a vos besoins." +
                 " Les touches I et C de votre\nclavier devraient vous interesser...\nBonne Chance"));
@@ -70,34 +66,27 @@ namespace LifeInTheWild
             crafting = new Crafting(player);
             affPancarte = new AffichagePancarte();
 
+            terrain = new Terrain(50, floorTiles);
+            int mapSize = terrain.getMapSize();
+
             //fais apparaitre 70 arbres, buissons, cailloux...
             for (int i = 0; i <= 70; i++)
             {
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "bush", 3));
-                objets.Add(new Rock(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "rocks", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "tree", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize), "sapin", 3));
-                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * tileSize, rnd.Next(mapSize-1) * tileSize),"seed", "crop", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "bush", 3));
+                objets.Add(new Rock(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "rocks", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "tree", 3));
+                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "sapin", 3));
+                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16),"seed", "crop", 3));
             }
 
-            //Charge un tableau 2D et le remplis de valeurs aléatoires (Map)---------------------------------------------------------------------------------
-            for (int i = 0; i <= mapSize - 1; i++)
-            {
-                for (int j = 0; j <= mapSize - 1; j++)
-                {
-                    map[i, j] = rnd.Next(0, 4);
-                }
-            }
-
-            //Géneration des barrieres autour du terrain
+            //Géneration de barrieres autour du terrain
             for(int i = 0; i < 50; i++)
             {
-                objets.Add(new Arbre(new Vector2(i * tileSize, 0), "tree", 900));
-                objets.Add(new Arbre(new Vector2(0, i*tileSize), "tree", 900));
-                objets.Add(new Arbre(new Vector2(i * tileSize, 50*tileSize), "tree", 900));
-                objets.Add(new Arbre(new Vector2(50*tileSize, i * tileSize), "tree", 900));
+                objets.Add(new Arbre(new Vector2(i * 16, 0), "tree", 900));
+                objets.Add(new Arbre(new Vector2(0, i * 16), "tree", 900));
+                objets.Add(new Arbre(new Vector2(i * 16, 50 * 16), "tree", 900));
+                objets.Add(new Arbre(new Vector2(50 * 16, i * 16), "tree", 900));
             }
-
 
             //Vérifie qu'aucune entité n'est sur le joueur
             for (int i = 0; i < objets.Count; i++)
@@ -108,12 +97,11 @@ namespace LifeInTheWild
                     DebugConsole.addLine("Destroying: " + objets[i]);
                 }
             }
-
         }
 
         public override void Update(GameTime time)
         {
-            player.Update(objets, map, inventaire, crafting, affPancarte);
+            player.Update(objets, terrain.getMapData(), inventaire, crafting, affPancarte);
             camera.Follow(player);
             crafting.Update();
             inventaire.Update();
@@ -127,8 +115,13 @@ namespace LifeInTheWild
             //Vérifie chaque entitée et la détruit si elle n'a plus de vie
             for (int i = 0; i < objets.Count; i++)
             {
+                if(objets[i] is Vegetable)
+                {
+                    objets[i].Update();//performance heavy !!
+                }
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
+                    DebugConsole.addLine("Destruction de:" + objets[i]);
                     objets[i].Destroy(inventaire, objets, objets[i]);
                     Loader.Sounds["destroy"].Play();
                 }
@@ -143,23 +136,7 @@ namespace LifeInTheWild
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, camera.Transform * Matrix.CreateScale(2f));
-
-            //Affichage du terrain-----------------------------------------------------------------------------------------------------------------------------
-
-            for (int ligne = 0; ligne <= mapSize - 1; ligne++)
-            {
-                for (int colonne = 0; colonne <= mapSize - 1; colonne++)
-                {
-                    if (player.getPosition().X < colonne * tileSize + 1224 &&
-                        player.getPosition().X + 224 > colonne * tileSize &&
-                        player.getPosition().Y < ligne * tileSize + 1176 &&
-                        player.getPosition().Y + 176 > ligne * tileSize)
-                    {
-                        int id = map[ligne, colonne];
-                        spriteBatch.Draw(floorTiles[id], new Vector2(colonne * tileSize, ligne * tileSize), Color.White);
-                    }
-                }
-            }
+            terrain.Draw(spriteBatch);
 
             foreach (Entity el in objets)//pour tous les objets de la map--------------------------------------------------------------------------------------
             {
@@ -173,37 +150,25 @@ namespace LifeInTheWild
 
             player.Draw(spriteBatch);
             chicken.Draw(spriteBatch);
-            double posX = Math.Round((player.getPosition().X + (player.getDir().X * tileSize)) / tileSize);
-            double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * tileSize)) / tileSize);
+            double posX = Math.Round((player.getPosition().X + (player.getDir().X * 16)) / 16);
+            double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * 16)) / 16);
             spriteBatch.Draw(rectTex, new Vector2((int)posX * 16, (int)posY * 16), Color.Fuchsia);
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface------------------------------------------------------------------------------------------------------------
             spriteBatch.Begin(SpriteSortMode.Immediate, null, SamplerState.PointClamp, null, null, null, Matrix.CreateScale(1f));
-            //spriteBatch.DrawString(font, "HP: " + player.getHP(), new Vector2(10, 55), Color.Red);
-            spriteBatch.DrawString(font, "Player Target Pos: " + Math.Round((player.getPosition().X + (player.getDir().X * tileSize)) / tileSize) + " " + Math.Round((player.getPosition().Y + (player.getDir().X * tileSize)) / tileSize), new Vector2(10, 70), Color.Red);
-            spriteBatch.DrawString(font, "Player Map Pos: " + Math.Round(player.getPosition().X / tileSize) + " " + Math.Round(player.getPosition().Y / tileSize), new Vector2(10, 85), Color.Red);
-            spriteBatch.DrawString(font, "Objet Count: " + objets.Count, new Vector2(10, 115), Color.Red);
 
             for (int i = 0; i <= player.getHP() / 10; i++)
-            {
-                spriteBatch.Draw(heart, new Vector2((18 * i) + 10, 0), Color.White);
-            }
+            {spriteBatch.Draw(heart, new Vector2((18 * i) + 10, 0), Color.White);}
 
             for (int i = 0; i <= player.getHunger() / 10; i++)
-            {
-                spriteBatch.Draw(bread, new Vector2((18 * i) + 10, 25), Color.White);
-            }
+            {spriteBatch.Draw(bread, new Vector2((18 * i) + 10, 25), Color.White);}
 
             for (int i = 0; i <= player.getThirst() / 10; i++)
-            {
-                spriteBatch.Draw(water, new Vector2((18 * i) + 10, 50), Color.White);
-            }
+            {spriteBatch.Draw(water, new Vector2((18 * i) + 10, 50), Color.White);}
 
             if (debug)//affiche la console uniquement en mode debug
-            {
                 DebugConsole.Draw(spriteBatch, font, new Vector2(10, 145));
-            }
 
             if (inventaire.isActive)
                 inventaire.Draw(spriteBatch, font);

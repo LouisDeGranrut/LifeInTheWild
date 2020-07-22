@@ -49,6 +49,11 @@ namespace LifeInTheWild
                     isActive = false;
                     player.setOutil(6);
                 }
+                if (Keyboard.GetState().IsKeyDown(Keys.NumPad6))
+                {
+                    isActive = false;
+                    player.setOutil(7);
+                }
             }
         }
 

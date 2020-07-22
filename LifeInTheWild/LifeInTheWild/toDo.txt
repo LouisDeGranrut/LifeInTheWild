@@ -1,7 +1,1 @@
-﻿toDo:
-
-faire en sorte que la console ne dépasse pas de l'écran
-utiliser le tileset
-trouver un clavier avec un numpad pour tester le crafting
-que l'interaction avec la pancarte se fasse par E
-planter des choses
+﻿
