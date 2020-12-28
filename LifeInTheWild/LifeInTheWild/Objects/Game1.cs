@@ -34,6 +34,7 @@ namespace LifeInTheWild
             Loader.LoadImages(this.Content);
             Loader.LoadAudio(this.Content);
             Loader.LoadFont(this.Content);
+
             menuActuel = new MainMenu();
         }
 
@@ -53,8 +54,6 @@ namespace LifeInTheWild
                     Exit();
                 }
             }
-
-
 
             base.Update(gameTime);
         }

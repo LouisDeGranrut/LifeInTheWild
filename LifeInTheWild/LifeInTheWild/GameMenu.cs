@@ -70,23 +70,23 @@ namespace LifeInTheWild
             int mapSize = terrain.getMapSize();
 
             //fais apparaitre 70 arbres, buissons, cailloux...
-            for (int i = 0; i <= 70; i++)
+            for (int i = 0; i <= 10000; i++)
             {
                 objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "bush", 3));
-                objets.Add(new Rock(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "rocks", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "tree", 3));
-                objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "sapin", 3));
-                objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16),"seed", "crop", 3));
+                //objets.Add(new Rock(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "rocks", 3));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "tree", 3));
+                //objets.Add(new Arbre(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16), "sapin", 3));
+                //objets.Add(new Vegetable(new Vector2(rnd.Next(mapSize-1) * 16, rnd.Next(mapSize-1) * 16),"seed", "crop", 3));
             }
 
             //Géneration de barrieres autour du terrain
-            for(int i = 0; i < 50; i++)
+            /*for(int i = 0; i < 50; i++)
             {
                 objets.Add(new Arbre(new Vector2(i * 16, 0), "tree", 900));
                 objets.Add(new Arbre(new Vector2(0, i * 16), "tree", 900));
                 objets.Add(new Arbre(new Vector2(i * 16, 50 * 16), "tree", 900));
                 objets.Add(new Arbre(new Vector2(50 * 16, i * 16), "tree", 900));
-            }
+            }*/
 
             //Vérifie qu'aucune entité n'est sur le joueur
             for (int i = 0; i < objets.Count; i++)
@@ -117,7 +117,7 @@ namespace LifeInTheWild
             {
                 if(objets[i] is Vegetable)
                 {
-                    objets[i].Update();//performance heavy !!
+                    objets[i].Update();//mettre à jour l'entité Vegetable
                 }
                 if (objets[i].getHP() <= 0)//si l'entité n'a plus de hp
                 {
@@ -153,6 +153,7 @@ namespace LifeInTheWild
             double posX = Math.Round((player.getPosition().X + (player.getDir().X * 16)) / 16);
             double posY = Math.Round((player.getPosition().Y + (player.getDir().Y * 16)) / 16);
             spriteBatch.Draw(rectTex, new Vector2((int)posX * 16, (int)posY * 16), Color.Fuchsia);
+
             spriteBatch.End();
 
             //nouvelle spritebatch pour l'interface------------------------------------------------------------------------------------------------------------
